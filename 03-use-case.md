@@ -59,7 +59,7 @@ Konsep _Use Case_ pertama kali diperkenalkan oleh **Ivar Jacobson** dalam metodo
 
 Diagram Use Case UML terdiri dari empat elemen pembentuk utama:
 
-```
+```mermaid
 graph LR
     subgraph Batas_Sistem [Nama Sistem / System Boundary]
         UC1((Nama Use Case))
@@ -93,7 +93,7 @@ graph LR
 
 Untuk mengorganisasi dan menguraikan kompleksitas model use case, UML menyediakan tiga jenis relasi antar use case:
 
-```
+```mermaid
 flowchart LR
     UC_Base1(("Proses Transaksi")) -- &lt;&lt;incude&gt&gt; --> UC_Inc(("Validasi Pengguna"))
 
