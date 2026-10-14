@@ -61,17 +61,6 @@ Untuk menjadikan UML sebagai standar industri terbuka, Rational Software bersama
 
 OMG secara resmi mengadopsi **UML versi 1.1** sebagai standar pemodelan industri pada bulan November 1997. Sejak saat itu, OMG memegang kendali kepemilikan dan pemeliharaan standar UML.
 
-```
-timeline
-    title Garis Waktu Evolusi Standardisasi UML oleh OMG
-    1997 : OMG Adopsi UML 1.1 sebagai Standar Terbuka
-    1999 - 2003 : Era UML 1.3 - 1.5
-                : Introduksi OCL (Object Constraint Language) & XMI
-    2005 : Rilis Mayor OMG UML 2.0
-         : Pemisahan Spesifikasi Infrastructure & Superstructure
-    2011 - 2017 : UML 2.4.1 hingga UML 2.5.1
-                : Standar Internasional ISO/IEC 19505
-```
 
 **Evolusi Spesifikasi Versi UML:**
 
