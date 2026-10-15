@@ -85,13 +85,10 @@ Pendekatan **Iteratif dan Inkremental (**Iterative and Incremental Development)*
 
 Pendekatan ini dikembangkan untuk mengatasi keterbatasan SDLC linier tradisional (seperti _Waterfall_) yang sering mengalami kegagalan akibat asumsi kebutuhan beku (_frozen requirements_) dan penundaan pengujian hingga akhir proyek.
 
----
-
 ### 3.1. Definisi Konseptual: Iteratif vs. Inkremental
 
-Meskipun sering diucapkan dalam satu kesatuan, **Iteratif** dan **Inkremental** merujuk pada dua dimensi pengembangan yang berbeda namun saling melengkapi:
+![](files/01-incremental.png)
 
-![440](files/01-inkremental-1.png)
 
 1. **Inkremental (**_Incremental_**)**: Berfokus pada **penambahan fungsionalitas secara bertahap (_piece by piece_)**. Perangkat lunak dipecah menjadi beberapa rilis bagian (_subsets/increments_), di mana setiap rilis menambahkan fitur atau modul baru ke dalam sistem yang sudah berjalan.
 2. **Iteratif (_Iterative_)**: Berfokus pada **penyempurnaan dan revisi berulang (_refinement_)**. Setiap bagian perangkat lunak melewati siklus analisis, desain, pengodean, dan pengujian berulang kali. Tujuannya adalah memperbaiki desain, meningkatkan performa, dan menyesuaikan kebutuhan berdasarkan umpan balik riil (_feedback_).
@@ -110,9 +107,7 @@ Pengembangan diorganisasikan ke dalam mini-proyek berdurasi tetap yang pendek, b
 
 #### B. Penggerak Berbasis Risiko (_Risk-Driven Development_)
 
-Berbeda dengan _Waterfall_ yang menunda pekerjaan berisiko tinggi (seperti integrasi dan pengujian beban) ke fase akhir, pendekatan iteratif memprioritaskan persyaratan dan komponen arsitektural yang **paling berisiko (****high risk****)** dan **bernilai bisnis tinggi (****high value****)** pada iterasi-iterasi awal.
-
-![](files/01-vs-3.png)
+Berbeda dengan _Waterfall_ yang menunda pekerjaan berisiko tinggi (seperti integrasi dan pengujian beban) ke fase akhir, pendekatan iteratif memprioritaskan persyaratan dan komponen arsitektural yang **paling berisiko (_high risk_)** dan **bernilai bisnis tinggi (_high value_)** pada iterasi-iterasi awal.
 
 #### C. Hasil Akhir Berupa _Executable Code_
 
@@ -154,8 +149,51 @@ Setiap iterasi tunggal dapat dipandang sebagai sebuah **"proyek mini"** (_mini-w
 | **Hasil Rilis _Deliverable_)** | _Big Bang_; rilis tunggal di akhir proyek.                      | _Continuous Releases_; Rilis bertahap dari subset fitur yang berfungsi.  |
 | **Integrasi Kode**             | Dilakukan sekali secara masif di akhir (_painful integration_). | Integrasi dilakukan terus-menerus (_continuous integration_).            |
 
-![480](files/01-vs-2.png)
+![](files/01-waterfall-vs.png)
 
+---
+
+## 4. Studi Kasus: pengembangan Aplikasi E-Commerce "TokoCepat"
+
+Dalam skenario pengembangan **Aplikasi E-Commerce "TokoCepat"**, pendekatan Iterative & Incremental memungkinkan tim pengembang untuk merilis fungsionalitas inti ke pasar dengan cepat, lalu terus menambahkan fitur dan melakukan penyempurnaan berdasarkan umpan balik pengguna di setiap siklusnya.
+
+Berikut adalah rincian tahapan per iterasi:
+
+### Iterasi 1: Membangun Produk Minimum yang Layak (MVP)
+
+Tujuan pada iterasi pertama adalah menghasilkan _increment_ (potongan perangkat lunak) berupa fitur dasar agar pengguna bisa mulai berbelanja.
+
+- **Perencanaan & Analisis:** Tim menentukan bahwa fitur absolut yang dibutuhkan adalah registrasi pengguna, katalog produk dasar, keranjang belanja, dan _checkout_ menggunakan metode transfer bank manual.
+- **Desain:** Membuat rancangan antarmuka (UI) sederhana dan skema database dasar untuk tabel _User_, _Product_, dan _Order_.
+- **Implementasi:** Programmer menulis kode (misalnya menggunakan arsitektur MVC pada Spring Boot atau Laravel) untuk mewujudkan fitur-fitur dasar tersebut.
+- **Pengujian:** Melakukan _unit testing_ dan pengujian fungsional untuk memastikan pengguna benar-benar bisa mendaftar dan membuat pesanan.
+- **Rilis (Increment 1):** Aplikasi versi 1.0 diluncurkan ke sekelompok pengguna awal (beta tester).
+- **Evaluasi (Feedback):** Pengguna berhasil berbelanja, tetapi mereka mengeluh kesulitan mencari produk spesifik dan merasa transfer bank manual terlalu merepotkan.
+
+### Iterasi 2: Penambahan Fitur Pencarian dan Otomatisasi Pembayaran
+
+Berdasarkan evaluasi Iterasi 1, tim merencanakan perbaikan (iteratif) dan penambahan fitur baru (inkremental).
+
+- **Perencanaan & Analisis:** Menetapkan target fitur baru berupa Kolom Pencarian (Search & Filter) dan integrasi _Payment Gateway_ (seperti e-Wallet atau _Virtual Account_).
+- **Desain:** Memperbarui UI untuk meletakkan _search bar_ di halaman utama dan merancang alur API untuk _Payment Gateway_.
+- **Implementasi:** Tim _backend_ mengintegrasikan API pihak ketiga, sementara tim _frontend_ membangun komponen filter produk. Tim juga memperbaiki beberapa _bug_ kecil dari Iterasi 1.
+- **Pengujian:** Menguji fitur pembayaran secara menyeluruh (sandbox) dan memastikan fitur keranjang belanja dari Iterasi 1 tidak rusak (_regression testing_).
+- **Rilis (Increment 2):** Aplikasi versi 2.0 diluncurkan. Kini aplikasi lebih fungsional.
+- **Evaluasi (Feedback):** Transaksi meningkat pesat karena pembayaran lebih mudah. Pengguna kini meminta fitur untuk melacak status pengiriman dan memberikan ulasan pada barang yang sudah dibeli.
+
+### Iterasi 3: Fitur Lanjutan dan Interaksi Pengguna
+
+Siklus kembali berulang untuk memperkaya ekosistem aplikasi.
+
+- **Perencanaan & Analisis:** Menambahkan sistem _Tracking_ Resi otomatis dan Sistem _Rating/Review_ produk.
+- **Desain:** Merancang UI untuk halaman "Riwayat Pesanan" yang interaktif dan komponen bintang (_star rating_) pada halaman produk.
+- **Implementasi:** Mengembangkan relasi database baru untuk menyimpan ulasan dan menarik data dari API logistik pihak ketiga.
+- **Pengujian:** Melakukan _Load Testing_ untuk memastikan sistem stabil saat banyak pengguna memberi ulasan bersamaan.
+- **Rilis (Increment 3):** Aplikasi versi 3.0 diluncurkan dengan fitur yang sudah sangat komprehensif.
+
+**Hasil Akhir Pendekatan Ini:**
+
+Klien dan pengguna tidak perlu menunggu berbulan-bulan hingga versi 3.0 selesai sepenuhnya. Mereka sudah mulai mendapatkan nilai (value) sejak Iterasi 1, dan risiko kegagalan proyek diminimalkan karena setiap kesalahan atau kebutuhan baru langsung ditangani pada siklus berikutnya.
 
 ---
 ---

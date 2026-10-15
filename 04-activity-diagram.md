@@ -134,7 +134,7 @@ Diagram ini dibagi secara vertikal menjadi dua kolom partisi (_swimlanes_) untuk
 
 Berikut ontoh activity diagram *proses penanganan pesanan konsumen*.
 
-![](files/Pasted%20image%2020261015112616.png)
+![](files/03-activity-2.png)
 
 #### Penjelasan dan Pembedahan Semantik Activity Diagram
 
