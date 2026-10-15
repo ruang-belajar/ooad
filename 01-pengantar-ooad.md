@@ -17,7 +17,7 @@ Pemisahan ini menimbulkan **kerapuhan struktural** (_structural fragility_). Ket
 
 **Paradigma Berorientasi Objek** hadir untuk menyatukan kembali data (_attributes_) dan fungsi (_methods/operations_) ke dalam satu kesatuan independen yang dinamakan **Objek**. Objek merefleksikan entitas dunia nyata, sehingga menjembatani celah konseptual antara domain masalah (_problem domain_) dan domain solusi perangkat lunak (_solution domain_).
 
-![](files/01-vs-1.png)
+![356](files/01-vs-1.png)
 
 ---
 
@@ -35,7 +35,7 @@ Pemisahan ini menimbulkan **kerapuhan struktural** (_structural fragility_). Ket
 
 Ketika membicarakan paradigma *object-oriented*, maka ada 4 prinsip/pilar penting yang perlu dipahami:
 
-![](files/01-4-pilar.png)
+![554](files/01-4-pilar.png)
 
 #### A. Abstraksi (_Abstraction_)
 
@@ -70,7 +70,7 @@ Polimorfisme (berasal dari bahasa Yunani: "banyak bentuk") adalah kemampuan suat
 
 Siklus Hidup Pengembangan Perangkat Lunak tradisional umumnya diasosiasikan dengan model sekuensial linier (_Waterfall_).
 
-![](files/01-sdlc.png)
+![277](files/01-sdlc.png)
 Karakteristik & Masalah Utama SDLC Tradisional:
 
 1. **Pendekatan Sekuensial Kaku**: Setiap fase harus diselesaikan dan didokumentasikan secara penuh sebelum fase berikutnya dimulai.
@@ -91,7 +91,7 @@ Pendekatan ini dikembangkan untuk mengatasi keterbatasan SDLC linier tradisional
 
 Meskipun sering diucapkan dalam satu kesatuan, **Iteratif** dan **Inkremental** merujuk pada dua dimensi pengembangan yang berbeda namun saling melengkapi:
 
-![](files/01-inkremental-1.png)
+![440](files/01-inkremental-1.png)
 
 1. **Inkremental (**_Incremental_**)**: Berfokus pada **penambahan fungsionalitas secara bertahap (_piece by piece_)**. Perangkat lunak dipecah menjadi beberapa rilis bagian (_subsets/increments_), di mana setiap rilis menambahkan fitur atau modul baru ke dalam sistem yang sudah berjalan.
 2. **Iteratif (_Iterative_)**: Berfokus pada **penyempurnaan dan revisi berulang (_refinement_)**. Setiap bagian perangkat lunak melewati siklus analisis, desain, pengodean, dan pengujian berulang kali. Tujuannya adalah memperbaiki desain, meningkatkan performa, dan menyesuaikan kebutuhan berdasarkan umpan balik riil (_feedback_).
@@ -154,7 +154,7 @@ Setiap iterasi tunggal dapat dipandang sebagai sebuah **"proyek mini"** (_mini-w
 | **Hasil Rilis _Deliverable_)** | _Big Bang_; rilis tunggal di akhir proyek.                      | _Continuous Releases_; Rilis bertahap dari subset fitur yang berfungsi.  |
 | **Integrasi Kode**             | Dilakukan sekali secara masif di akhir (_painful integration_). | Integrasi dilakukan terus-menerus (_continuous integration_).            |
 
-![](files/01-vs-2.png)
+![480](files/01-vs-2.png)
 
 
 ---

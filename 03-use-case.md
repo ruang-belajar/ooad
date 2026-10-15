@@ -17,12 +17,11 @@ Tujuan utama dari fase ini adalah menjembatani jurang pemahaman (_domain gap_) a
 Kebutuhan sistem secara umum dikategorikan menjadi dua jenis utama:
 
 1. **Kebutuhan Fungsional (_Functional Requirements_)**:
-    
     - Menjelaskan fungsi, fitur, atau layanan spesifik yang harus mampu dilakukan oleh sistem.
     - Berfokus pada perilaku masukan dan keluaran (_input-output behavior_) sistem.
     - **Contoh**: _"Sistem harus dapat memproses pembayaran kartu kredit"_ atau _"Pengguna dapat mencari jadwal penerbangan"_.
+
 2. **Kebutuhan Non-Fungsional (_Non-Functional Requirements / NFRs_)**:
-    
     - Menentukan batasan (_constraints_) dan kualitas operasional tempat fungsi sistem berjalan.
     - Berfokus pada atribut kualitas software seperti performa, keamanan, keandalan, usabilitas, dan ketersediaan.
     - Klasifikasi umum NFRs sering menggunakan taksonomi **FURPS+** (_Functionality, Usability, Reliability, Performance, Supportability_).
