@@ -6,7 +6,7 @@ Antara akhir tahun 1980-an hingga pertengahan 1990-an, adopsi pemrograman berori
 
 Fragmentasi ini menimbulkan hambatan komunikasi antar tim, ketidakmampuan pertukaran alat pemodelan (_tool interoperability_), serta risiko investasi bagi organisasi yang mengadopsi notasi tertentu yang tidak menjadi standar industri. Di antara puluhan metodologi tersebut, terdapat **tiga metodologi utama** yang paling dominan dan menjadi cikal bakal terbentuknya UML:
 
-### A. Metodologi Booch _Grady Booch_)
+### A. Metodologi Booch (_Grady Booch_)
 ![](files/02-booch-1.png)
 - **Fokus Utama**: Menekankan pada perancangan arsitektur sistem secara rinci dan implementasi teknis (khususnya untuk bahasa seperti Ada dan C++).
 - **Karakteristik Visual**: Terkenal dengan penggunaan simbol **notasi berbentuk awan** (_cloud notation_) untuk merepresentasikannya sebagai kelas dan objek.
