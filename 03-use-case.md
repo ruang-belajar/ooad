@@ -58,32 +58,25 @@ Konsep _Use Case_ pertama kali diperkenalkan oleh **Ivar Jacobson** dalam metodo
 
 Diagram Use Case UML terdiri dari empat elemen pembentuk utama:
 
-```mermaid
-graph LR
-    subgraph Batas_Sistem [Nama Sistem / System Boundary]
-        UC1((Nama Use Case))
-    end
-    Aktor[Aktor Eksternal] ---|Asosiasi| UC1
-```
+![](files/03-uc-3.png)
 
 1. **Aktor (_Actor_)**:
-    
     - Entitas di luar batas sistem yang berinteraksi langsung dengan sistem.
     - Aktor merepresentasikan **peran (_role_)**, bukan individu spesifik. Misal, seseorang bisa berperan sebagai _Mahasiswa_ pada satu waktu dan sebagai _Asisten Dosen_ pada waktu lain.
     - **Kategori Aktor**:
         - _Primary Actor_: Aktor utama yang menginisiasi _use case_ untuk mencapai tujuannya (misal: _Kasir_, _Nasabah_).
         - _Supporting/Secondary Actor_: Aktor yang menyediakan layanan atau bantuan kepada sistem (misal: _Payment Authorization Service_, _Database Server_).
         - _Offstage Actor_: Entitas yang memiliki kepentingan terhadap perilaku use case tetapi tidak berinteraksi langsung (misal: _Lembaga Pajak/Pemerintah_).
+
 2. **Use Case**:
-    
     - Digambarkan dalam bentuk elips vertikal atau horizontal.
     - **Aturan Penamaan**: Harus diawali dengan frasa kata kerja tindakan (_verb phrase_) yang mencerminkan tujuan aktor. Misal: `Proses Pembayaran`, `Cetak Transkrip`, `Lapor Darurat`.
+
 3. **Batasan Sistem (_System Boundary_)**:
-    
     - Digambarkan berupa kotak persegi yang membungkus semua use case.
     - Aktor diletakkan di luar kotak batas sistem.
+
 4. **Hubungan Asosiasi (_Association Relationship_)**:
-    
     - Garis lurus yang menghubungkan Aktor dengan Use Case untuk menunjukkan adanya komunikasi/interaksi dua arah.
 
 ---
@@ -92,30 +85,57 @@ graph LR
 
 Untuk mengorganisasi dan menguraikan kompleksitas model use case, UML menyediakan tiga jenis relasi antar use case:
 
-```mermaid
-flowchart LR
-    UC_Base1(("Proses Transaksi")) -- &lt;&lt;incude&gt&gt; --> UC_Inc(("Validasi Pengguna"))
-
-    UC_Ext(("Beri Diskon Khusus")) -- &lt;&lt;extend&gt&gt; --> UC_Base2(("Proses Transaksi"))
-
-    UC_Child(("Pembayaran Kartu Kredit")) == Generalisasi ==> UC_Parent(("Kelola Pembayaran"))
-```
-
 ### 3.1. Relasi `<include>`
 
-- **Konsep**: Digunakan ketika sebuah _use case_ dasar (_base use case_) secara **wajib** mengeksekusi dan menyertakan perilaku dari _use case_ lain (_included use case_) dalam alur jalannya.
-- **Tujuan**: Mengekstrak fungsi terpisah yang sering berulang (_reusable sub-function_) di beberapa use case agar tidak terjadi redundansi teks.
-- **Notasi**: Garis putus-putus berpanah terbuka dari _Base Use Case_ menuju ke _Included Use Case_ dengan label `<<include>>`.
-- **Contoh**: Use Case `Proses Pemesanan` dan `Cek Riwayat` keduanya **mengikutsertakan** `Validasi Autentikasi`.
+![[files/03-uc-include-1.png]]
+
+Fungsi `<<include>>` (termasuk) digunakan untuk **menunjukkan bahwa suatu use case dasar secara wajib (mutlak) akan menjalankan use case yang dituju** agar prosesnya bisa dianggap selesai atau sah.
+
+Dalam UML, use case yang di-`include` (yang ditunjuk oleh arah panah putus-putus) bukan opsi opsional, melainkan bagian dari alur utama yang **selalu terjadi** setiap kali use case dasar dijalankan.
+
+Berikut adalah penjelasan fungsi `<<include>>` spesifik dari contoh diagram tersebut:
+  
+#### Dari **"Melakukan Pembayaran"** ke **"Verifikasi Pembayaran"**
+
+- **Fungsi:** Setiap kali pelanggan memilih untuk **Melakukan Pembayaran**, sistem secara otomatis dan wajib melakukan **Verifikasi Pembayaran** terlebih dahulu.
+- **Penjelasan:** Proses pembayaran tidak akan pernah selesai atau dianggap berhasil tanpa adanya verifikasi. Jadi, verifikasi adalah bagian mutlak yang "disertakan" (included) di dalam proses pembayaran.
+
+#### Dari **"Melakukan Pembayaran"** ke **"Kirim Email Konfirmasi"**
+
+- **Fungsi:** Setelah pelanggan **Melakukan Pembayaran**, sistem secara otomatis harus selalu **Mengirim Email Konfirmasi** kepada pelanggan.
+- **Penjelasan:** Pengiriman email ini adalah bagian standar dan wajib dari alur transaksi untuk memberikan bukti pembayaran.
+    
+#### Dari **"Membuat Pesanan"** ke **"Verifikasi Pembayaran"**
+
+- **Fungsi:** Saat pelanggan ingin **Membuat Pesanan**, sistem juga secara wajib melakukan **Verifikasi Pembayaran** (misalnya untuk memastikan kesiapan dana atau otorisasi sebelum pesanan benar-benar dibuat dan diproses).
+- **Penjelasan:** Sama seperti poin pertama, "Membuat Pesanan" tidak bisa tuntas tanpa adanya verifikasi pembayaran.
+    
+#### Mengapa Hubungan `<<include>>` Ini Sangat Berguna?
+
+Ada dua alasan utama mengapa hubungan `<<include>>` digunakan pada contoh di atas:
+
+1. **Menghindari Duplikasi (Reusability):** Perhatikan bahwa use case **"Verifikasi Pembayaran"** dibutuhkan oleh dua use case berbeda: _"Melakukan Pembayaran"_ dan _"Membuat Pesanan"_. Daripada kita menuliskan langkah-langkah verifikasi yang sama di dalam kedua proses tersebut, kita cukup membuat satu use case terpisah ("Verifikasi Pembayaran") lalu menghubungkannya dengan `<<include>>`. Ini membuat diagram dan dokumentasi sistem menjadi lebih ringkas dan efisien.
+    
+2. **Memecah Proses yang Rumit:** Dengan memisahkan "Kirim Email Konfirmasi" atau "Verifikasi Pembayaran" menjadi use case sendiri, kita bisa lebih mudah memahami detail teknis dari masing-masing tugas tersebut tanpa membuat use case utama (_Melakukan Pembayaran_) menjadi terlalu padat dan rumit.
 
 ---
 
 ### 3.2. Relasi `<extend>`
 
-- **Konsep**: Digunakan ketika sebuah _extending use case_ menambah perilaku **opsional** atau penanganan kondisi pengecualian (_exceptional flow_) ke _base use case_ pada titik tertentu yang disebut **Extension Point**.
-- **Karakteristik**: _Base use case_ bersifat mandiri dan tetap dapat berjalan lengkap tanpa adanya eksekusi dari _extending use case_.
-- **Notasi**: Garis putus-putus berpanah terbuka dari _Extending Use Case_ menunjuk kembali ke _Base Use Case_ dengan label `<<extend>>`.
-- **Contoh**: Use Case `Koneksi Terputus` memperluas (_extend_) `Proses Transaksi` hanya ketika jaringan gagal.
+
+![[files/Pasted image 20261020232943.png]]
+
+
+Pada level analisis kebutuhan pengguna, `<<extend>>` digunakan untuk menunjukkan bahwa sebuah Use Case (skenario) **dapat ditambahkan atau dipanggil secara opsional** ke dalam Use Case utama, asalkan syarat/kondisinya terpenuhi.
+
+Use Case utama tetap bisa berjalan sampai selesai tanpa harus memanggil Use Case tambahan ini.
+
+- **Skenario Utama (Base Use Case):** `Melakukan Checkout`
+    
+- **Extend Use Case (Opsional):** `Menggunakan Voucher Diskon`
+    
+    - **Penjelasan:** Pembeli tetap bisa melakukan checkout dan membayar pesanan tanpa menggunakan voucher. Fitur voucher hanya "memperluas" (_extend_) proses checkout _jika_ pembeli memilih untuk memasukkan kode promo.
+
 
 ---
 
@@ -422,6 +442,43 @@ Seorang analis sistem pemula membuat draf _Diagram Use Case_ untuk **Sistem Anju
 1. Analisis draf di atas dan sebutkan minimal **4 kesalahan metodologis/notasi UML** mendasar berdasarkan prinsip-prinsip pemodelan _Use Case_ OOAD.
 2. Jelaskan alasan teoritis mengapa masing-masing poin tersebut dikategorikan sebagai kesalahan.
 3. Lakukan **rekonstruksi (perbaikan)** dengan merevisi daftar Aktor, Use Case yang valid, dan relasi yang tepat untuk Sistem ATM tersebut.
+
+---
+
+### Soal Latihan 4: Sistem Pemesanan Makanan Online (Food Delivery)
+
+**Deskripsi Sistem:**
+
+Sebuah perusahaan rintisan sedang mengembangkan aplikasi pemesanan makanan online. Dalam aplikasi ini, pelanggan harus membuat akun dan _login_ untuk dapat mencari restoran, melihat menu, dan memasukkan makanan ke keranjang belanja. Saat melakukan _checkout_, pelanggan harus melakukan pembayaran melalui sistem terintegrasi (transfer bank, kartu kredit, atau dompet digital).
+
+Restoran mitra yang terdaftar dapat mengelola menu mereka (menambah/mengubah harga) dan akan menerima notifikasi jika ada pesanan masuk. Pihak restoran berhak menerima atau menolak pesanan. Jika pesanan diterima, restoran akan menyiapkan makanan tersebut.
+
+Sistem kemudian akan mencarikan pengemudi (_driver_) terdekat secara otomatis. Pengemudi dapat menerima pesanan, mengambil makanan di restoran, dan memperbarui status pengantaran hingga makanan sampai di tangan pelanggan. Di balik layar, terdapat Admin aplikasi yang bertugas memverifikasi pendaftaran akun restoran baru dan menonaktifkan akun pengguna yang melanggar aturan.
+
+**Diskusi:**
+- Siapa saja _Actor_ manusia dan _Actor_ sistem yang terlibat?
+- Aktivitas apa yang wajib menyertakan (_include_) proses _login_?
+- Aktivitas apa yang merupakan opsi tambahan (_extend_) dari proses pemesanan makanan?
+    
+---
+
+### Soal Latihan 5: Sistem Manajemen Perpustakaan Universitas
+
+**Deskripsi Sistem:**
+
+Sebuah universitas ingin mendigitalisasi perpustakaannya. Sistem informasi ini akan digunakan oleh Mahasiswa, Dosen, dan Pustakawan (staf).
+
+Mahasiswa dan Dosen bertindak sebagai Anggota perpustakaan. Mereka dapat menggunakan sistem untuk mencari katalog buku, melihat ketersediaan stok, dan melakukan reservasi peminjaman secara _online_. Anggota juga dapat mengecek riwayat peminjaman dan total denda keterlambatan jika ada.
+
+Pustakawan memiliki hak akses khusus untuk mengelola data buku (menambah, mengubah, menghapus), mengelola data anggota, serta memproses transaksi peminjaman fisik dan pengembalian buku di meja sirkulasi. Jika ada keterlambatan, Pustakawan akan menerima pembayaran denda dari Anggota.
+
+Sebagai fitur tambahan, sistem perpustakaan dirancang agar dapat bekerja secara otomatis setiap pukul 08:00 pagi untuk mengecek _database_ peminjaman. Sistem akan mengirimkan email peringatan (_reminder_) secara otomatis kepada anggota yang masa pinjam bukunya akan habis dalam 24 jam atau sudah jatuh tempo.
+
+**Diskusi:**
+
+- Bagaimana Anda merepresentasikan _Sistem Penjadwalan_ (waktu otomatis) sebagai _Actor_?
+- Apa saja _Use Case_ utama untuk Pustakawan dibandingkan dengan Anggota biasa?
+- Gambarkan batasan sistem (_System Boundary_) yang membungkus semua _Use Case_ tersebut.
 
 ---
 ---
