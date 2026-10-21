@@ -29,19 +29,6 @@ Kebutuhan sistem secara umum dikategorikan menjadi dua jenis utama:
 
 ---
 
-### 1.3. Teknik-Teknik Identifikasi Kebutuhan
-
-Pengembang menggunakan beragam teknik untuk menggali kebutuhan secara efektif:
-
-- **Wawancara Terstruktur dan Kuesioner**: Digunakan untuk mengumpulkan fakta, aturan bisnis, dan prioritas pengguna. Kuesioner efisien untuk mengjangkau banyak pengguna, sedangkan wawancara membantu mengklarifikasi jawaban yang ambigu.
-- **Penggunaan Skenario (_Scenario-Based Elicitation_)**: Pengembang mengamati pengguna dan menyusun skenario proses bisnis saat ini (_as-is scenarios_) serta skenario masa depan yang ditargetkan (_visionary scenarios_).
-- **Joint Application Design (JAD)**: Metode lokakarya (_workshop_) terstruktur yang mengumpulkan klien, pengguna, pengembang, dan fasilitator dalam satu ruangan untuk berdiskusi, bernegosiasi, dan menyepakati spesifikasi kebutuhan secara bersama-sama.
-- **Analisis Dokumen dan Observasi (Etnografi)**: Mempelajari formulir operasional, manual prosedur bisnis, serta mengamati langsung alur kerja harian pengguna untuk menemukan kebutuhan implisit.
-
-Hasil akhir dari kegiatan _requirements elicitation_ didokumentasikan dalam dokumen **Requirements Analysis Document (RAD)** atau **Software Requirements Specification (SRS)**.
-
----
-
 ## 2. Pemodelan Use Case (_Use Case Modeling_)
 
 ### 2.1. Konsep Dasar Use Case
@@ -155,9 +142,26 @@ Membedakan relasi `<include>` dan `<extend>` merupakan salah satu poin krusial d
 ### 3.4. Generalisasi (_Generalization_)
 
 - **Konsep**: Hubungan spesialisasi/pewarisan (_inheritance_) di mana _child use case_ mewarisi fitur, perilaku, dan relasi dari _parent use case_, serta dapat menambahkan atau menimpa (_override_) perilaku tersebut.
-- **Generalisasi Aktor**: Beberapa aktor spesifik mewarisi peran dari super-aktor umum. Misal: Aktor `Dosen` dan `Asisten` mewarisi relasi dari super-aktor `Tenaga Pengajar`.
+- **Generalisasi Aktor**: Beberapa aktor spesifik mewarisi peran dari super-aktor umum. Misal: Aktor `Admin` mewarisi relasi dari super-aktor `Pengguna`.
 - **Notasi**: Garis lurus dengan ujung panah segitiga kosong mengarah ke super-element (_parent_).
 
+![](files/03-uc-4.png)
+
+Secara visual, generalisasi digambarkan dengan **garis lurus berujung panah segitiga kosong** yang ditarik dari elemen anak mengarah ke elemen induk. Generalisasi dapat diterapkan pada dua hal: **Aktor** dan **Use Case**.
+
+Berikut adalah contoh penerapannya:
+
+**Contoh Kasus: Sistem E-Commerce**
+
+- **Parent Actor (Induk):** `Pengguna` (Bisa berupa siapa saja yang memiliki akun).
+- **Child Actors (Anak):** `Pelanggan` dan `Admin`.
+
+**Cara Kerjanya di Diagram:**
+- Aktor `Pengguna` dihubungkan ke _use case_ dasar seperti **"Login"** dan **"Melihat Katalog"**.
+- Ditarik panah generalisasi dari aktor `Pelanggan` dan `Admin` mengarah ke aktor `Pengguna`.
+- Otomatis, `Pelanggan` dan `Admin` bisa melakukan "Login" dan "Melihat Katalog" tanpa perlu ditarik garis _use case_ baru.
+- Kemudian, Anda hanya perlu menarik garis _use case_ spesifik untuk anak aktor. Aktor `Pelanggan` dihubungkan ke _use case_ **"Checkout Barang"**, sedangkan aktor `Admin` dihubungkan ke _use case_ **"Kelola Data Produk"**.
+    
 ---
 
 ## 4. Skenario Use Case
@@ -179,95 +183,43 @@ Sebelum menerapkan templat tekstual, penting untuk memahami bahwa spesifikasi _u
 ### 4.2. Anatomi dan Elemen Spesifikasi Use Case Tekstual (_Fully Dressed_)
 
 Templat spesifikasi tekstual _use case_ standar apa umumnya menggunakan *template Cockburn & Larman*. Template ini mengorganisasi informasi ke dalam beberapa bagian utama:
+![](files/Pasted%20image%2020261021172325.png)
 
-```
-+-----------------------------------------------------------------------+
-| NAMA USE CASE & IDENTIFIER                                            |
-+-----------------------------------------------------------------------+
-| HEADER                                               |
-|  - Aktor Utama & Pendukung (Primary & Supporting Actors)              |
-|  - Pemangku Kepentingan & Kepentingan (Stakeholders & Interests)      |
-|  - Pemicu (Trigger)                                                   |
-+-----------------------------------------------------------------------+
-| KONDISI BATAS (CONDITIONS & GUARANTEES)                               |
-|  - Prakondisi (Preconditions / Entry Conditions)                      |
-|  - Paskakondisi (Postconditions / Success Guarantees / Exit Conditions)|
-+-----------------------------------------------------------------------+
-| ALUR UTAMA KESUKSESAN (MAIN SUCCESS SCENARIO / BASIC FLOW)            |
-|  1. Aktor melakukan aksi...                                           |
-|  2. Sistem memvalidasi dan merespons...                               |
-+-----------------------------------------------------------------------+
-| ALUR PERLUASAN & PENGECUALIAN (EXTENSIONS / ALTERNATE FLOWS)          |
-|  3a. Kondisi Alternatif/Pengecualian:                                 |
-|      1. Sistem menampilkan pesan...                                   |
-+-----------------------------------------------------------------------+
-| KEBUTUHAN KHUSUS & MATA RANTAI VARIASI (SPECIAL REQUIREMENTS)        |
-|  - Atribut Kualitas / Non-fungsional Terikat                          |
-|  - Variasi Data & Teknologi                                           |
-+-----------------------------------------------------------------------+
-| INFORMASI TAMBAHAN / METADATA                                         |
-|  - Frekuensi Kejadian (Frequency of Occurrence)                       |
-|  - Masalah Terbuka (Open Issues)                                      |
-+-----------------------------------------------------------------------+
-```
+Berikut adalah penjelasan rinci untuk masing-masing elemen penyusun dalam template _Fully Dressed Use Case_ standar Cockburn & Larman:
 
-#### Header (_Preface Elements_)
+- **ID & Nama Use Case (Use Case Name & ID):** Identifikasi unik (misal: UC-001) dan nama deskriptif dari use case. Nama harus menggunakan format kata kerja aktif yang menunjukkan tujuan pengguna, seperti "Memproses Penjualan" atau "Mendaftar Mata Kuliah".
+    
+- **Aktor Utama (Primary Actor):** Pengguna (manusia) atau sistem eksternal yang memicu use case ini untuk mencapai tujuannya. Aktor utama adalah pihak yang mendapatkan nilai atau manfaat langsung dari eksekusi use case.
+    
+- **Ruang Lingkup (Scope):** Menentukan batas sistem yang sedang dirancang (_System Under Design_). Ini menjelaskan apakah use case ini berlaku untuk keseluruhan sistem (_enterprise-level_), satu aplikasi spesifik, atau hanya sebuah subsistem kecil.
+    
+- **Tingkat (Level):** Kategorisasi sasaran dari use case. Terdapat tiga tingkat utama:
+    - _User Goal:_ Tujuan utama aktor (paling sering digunakan, misal: "Membayar Pesanan").
+    - _Summary:_ Kumpulan dari beberapa _user goal_ yang lebih kecil (proses bisnis tingkat tinggi).
+    - _Subfunction:_ Langkah operasional kecil yang mendukung _user goal_ dan sering dipanggil oleh use case lain (misal: "Otentikasi Login").
+        
+- **Pemangku Kepentingan & Kepentingannya (Stakeholders & Interests):** Daftar semua pihak yang peduli terhadap hasil dari use case ini, beserta apa yang mereka harapkan. Bagian ini sangat penting dalam metode Larman untuk memastikan tidak ada aturan bisnis atau persyaratan tersembunyi yang terlewat (misal: "Kasir ingin proses yang cepat; Bagian Pajak ingin setiap transaksi tercatat pajaknya").
+    
+- **Prakondisi (Preconditions):** Kondisi atau status sistem yang _wajib bernilai benar_ sebelum use case ini diizinkan untuk dimulai. Sistem tidak akan memvalidasi kondisi ini di dalam alur use case, melainkan mengasumsikannya sudah terpenuhi (misal: "Kasir sudah berhasil login ke dalam sistem").
+    
+- **Hasil Sukses / Jaminan Sukses (Success Guarantee / Postcondition):** Keadaan atau perubahan data pada sistem yang dijamin akan terjadi jika use case berhasil diselesaikan dengan sempurna (misal: "Stok barang berkurang, struk tercetak, dan total pendapatan harian diperbarui").
+    
+- **Hasil Gagal / Jaminan Minimal (Minimal Guarantee):** Janji sistem tentang apa yang akan terjadi jika use case gagal di tengah jalan. Biasanya berisi perlindungan keamanan atau integritas data (misal: "Transaksi dibatalkan, status stok dikembalikan, dan log error dicatat ke dalam database").
+    
+- **Pemicu (Trigger):** Peristiwa spesifik yang menyebabkan aktor memulai use case ini. Bisa berupa tindakan manual atau pemicu waktu (misal: "Pelanggan membawa barang ke meja kasir").
+    
+- **Skenario Utama (Main Success Scenario / Basic Flow):** Sering disebut _Happy Path_. Ini adalah langkah-langkah interaksi yang ideal, berurutan dari awal hingga akhir, di mana tidak ada error atau hambatan. Ditulis dalam bentuk interaksi aksi-reaksi antara Aktor dan Sistem.
+    
+- **Ekstensi (Extensions / Alternative Flows):** Skenario percabangan yang merujuk pada nomor langkah di Skenario Utama (misal: langkah 3a, 3b). Bagian ini menangani semua kondisi alternatif, error, kegagalan, atau pilihan jalan lain yang bisa terjadi pada langkah tersebut, beserta respon sistemnya.
+    
+- **Persyaratan Khusus (Special Requirements):** Kebutuhan non-fungsional yang terkait langsung dengan use case ini. Biasanya berkaitan dengan batasan kinerja, keamanan, atau UX (misal: "Pencarian data pelanggan harus selesai dalam waktu kurang dari 2 detik").
+    
+- **Variasi Teknologi & Data (Technology & Data Variations):** Catatan mengenai kemungkinan perbedaan format input, output, atau perangkat keras tanpa mengubah alur logika bisnis. (misal: "Pembayaran dapat menggunakan pemindai barcode, RFID, atau input manual via _keyboard_").
+    
+- **Frekuensi (Frequency of Occurrence):** Estimasi seberapa sering use case ini akan dijalankan (misal: "Hampir terus-menerus selama jam operasional" atau "Satu kali setiap akhir bulan"). Informasi ini krusial untuk merancang kapasitas server dan basis data.
+    
+- **Masalah Terbuka (Open Issues):** Daftar pertanyaan, keraguan, atau kebijakan bisnis yang belum memiliki jawaban pasti saat dokumen ini ditulis dan membutuhkan rapat atau konfirmasi lanjutan dengan klien.
 
-Bagian header memuat informasi identifikasi awal sebelum alur interaksi dibaca:
-
-- **Nama Use Case & ID**: Berupa frasa kata kerja tindakan (_verb phrase_) yang unik dan mencerminkan tujuan yang ingin dicapai oleh aktor utama (misal: `UC1: Proses Pemesanan Tiket`).
-- **Aktor Utama (_Primary Actor_)**: Aktor yang menginisiasi interaksi untuk mencapai tujuan utamanya melalui sistem.
-- **Aktor Pendukung (_Supporting / Secondary Actors_)**: Entitas luar atau sistem eksternal yang menyediakan layanan, data, atau verifikasi tambahan kepada sistem selama _use case_ berjalan (misal: _Sistem Otorisasi Pembayaran_).
-- **Pemangku Kepentingan & Kepentingan (_Stakeholders and Interests List_)**: Daftar entitas atau pihak yang tidak selalu berinteraksi langsung dengan antarmuka sistem, namun memiliki kepentingan terhadap perilaku dan hasil dari _use case_ tersebut. Bagian ini penting untuk memastikan sistem memenuhi seluruh hak bisnis organisasi.
-- **Pemicu (_Trigger_)**: Kejadian (_event_) awal yang menyebabkan _use case_ mulai dieksekusi, baik berupa tindakan langsung aktor maupun perubahan waktu/sistem.
-
-#### Kondisi Batas (_Conditions & Guarantees_)
-
-Kondisi batas menentukan status sistem sebelum dan sesudah _use case_ dijalankan:
-
-- **Prakondisi (_Preconditions / Entry Conditions_)**:
-    - Menyatakan fakta atau syarat yang **wajib bernilai BENAR** sebelum _use case_ dapat dimulai.
-    - Prakondisi tidak diuji atau diperiksa di dalam alur _use case_ itu sendiri, melainkan dianggap sebagai asumsi dasar yang sudah terpenuhi (misal: _"Pengguna telah berhasil terautentikasi ke dalam sistem"_).
-- **Paskakondisi (_Postconditions / Success Guarantees / Exit Conditions_)**:
-    - Menyatakan jaminan kondisi sistem setelah _use case_ berhasil diselesaikan, baik melalui alur utama maupun alur alternatif.
-    - Paskakondisi ditulis dalam kalimat berorientasi masa lalu (_past tense_) untuk menegaskan perubahan status sistem (misal: _"Data transaksi berhasil disimpan dan inventaris diperbarui"_).
-
----
-
-#### Alur Utama Kesuksesan (_Main Success Scenario / Basic Flow / "Happy Path"_)
-
-Alur utama mendeskripsikan urutan langkah interaksi ideal ketika segala sesuatunya berjalan lancar tanpa gangguan, kegagalan jaringan, atau kesalahan masukan (_happy path_).
-
-Setiap langkah dalam alur utama bernomor runtut dan umumnya merepresentasikan salah satu dari tiga jenis kejadian:
-
-1. **Interaksi antar Aktor dan Sistem**: Aktor memberikan masukan data atau memilih perintah; atau sistem menyajikan informasi kepada aktor.
-2. **Validasi Internal**: Sistem melakukan verifikasi atau pengujian terhadap aturan bisnis (_business rules_).
-3. **Perubahan Status Sistem (_State Change_)**: Sistem membuat, memperbarui, atau menyimpan data objek di dalam penyimpanan persisten.
-
----
-
-#### Alur Perluasan & Pengecualian (_Extensions / Alternate Flows_)
-
-Bagian alur perluasan adalah bagian yang paling kompleks dan krusial karena mencakup seluruh variasi skenario di luar alur utama. Penulisan alur perluasan menggunakan penomoran terikat yang merujuk pada nomor langkah di alur utama.
-
-Perluasan dibagi menjadi dua jenis utama:
-
-- **Variansi Fungsional (_Variants_)**: Jalur opsional yang dipilih oleh pengguna untuk menyelesaikan tujuan dengan cara berbeda tanpa menghentikan kesuksesan transaksi (ditandai dengan label seperti `3a`, `3b`).
-- **Penanganan Pengecualian (_Exception Handling_)**: Alur yang dieksekusi saat timbul kendala, kesalahan validasi, atau kegagalan sistem luar (ditandai dengan label penanganan seperti `3a.1`, `E1`). Alur ini menentukan apakah sistem dapat pulih kembali ke alur utama atau berujung pada kegagalan transaksi (_use case fails_).
-
----
-
-#### Kebutuhan Khusus & Variasi Teknologi (_Special Requirements & Variations_)
-
-- **Kebutuhan Khusus (_Special Requirements / Quality Requirements_)**: Tempat mendokumentasikan kebutuhan non-fungsional (_non-functional requirements_), kualitas layanan (_quality attributes_), atau batasan desain yang terikat secara spesifik pada _use case_ tersebut. Contohnya mencakup batas waktu tanggap pemrosesan atau batasan perangkat keras antarmuka.
-- **Variasi Data dan Teknologi (_Technology & Data Variations List_)**: Menjelaskan perbedaan teknis pada antarmuka masukan/keluaran atau metode pencatatan data tanpa mengubah alur logika utama (misal: _"Masukan kode barang dapat melalui pemindai barcode atau pengetikan manual"_).
-
----
-
-#### Informasi Tambahan / Metadata
-
-- **Frekuensi Kejadian (_Frequency of Occurrence_)**: Memetakan seberapa sering _use case_ ini diperkirakan akan dieksekusi dalam periode waktu tertentu untuk membantu tim arsitektur merancang kapasitas sistem.
-- **Masalah Terbuka (_Open Issues_)**: Catatan pertanyaan bisnis atau teknis yang belum terintegrasi atau masih memerlukan konfirmasi lebih lanjut dari klien.
 
 ---
 
@@ -285,11 +237,131 @@ Dalam menyusun spesifikasi tekstual _use case_, terdapat beberapa pedoman penuli
 
 ## 4. Contoh Skenario Use Case
 
-### Contoh 1: Template
+### Contoh 1: Sistem Point of Sale (NextGen POS)
 
-![](files/03-uc-2.png)
+#### A. Deskripsi Kasus
+
+**NextGen POS** adalah sistem kasir ritel berorientasi objek yang digunakan untuk mengelola transaksi penjualan di toko, kalkulasi harga dan pajak, otorisasi pembayaran kartu, serta pembaruan data akuntansi dan inventaris secara _real-time_.
+
+#### B. Identifikasi Aktor & Batas Sistem
+
+- **Primary Actor**: `Cashier` (Kasir).
+- **Supporting Actors**: `Payment Authorization Service`, `Tax Calculator`, `Accounting System`.
+- **Administrative Actor**: `System Administrator`.
+
+#### C. Spesifikasi Tekstual Use Case (UC1: Process Sale)
+
+- **Primary Actor**: Kasir.
+- **Main Success Scenario (Alur Utama)**:
+    1. Pelanggan datang ke kasir membawa barang belanjaan.
+    2. Kasir memulai transaksi penjualan baru.
+    3. Kasir memasukkan ID barang; Sistem mencatat baris item dan menampilkan deskripsi serta harga running total.
+    4. Kasir mengulang langkah 3 hingga selesai.
+    5. Sistem menampilkan total harga beserta perhitungan pajak.
+    6. Pelanggan melakukan pembayaran dan sistem memproses pembayaran.
+    7. Sistem mencatat penjualan yang selesai dan mengirimkan data ke sistem Akuntansi dan Inventaris.
+    8. Sistem mencetak struk/nota belanja.
+- **Extensions (Alur Alternatif/Ekstensi)**:
+    - `7a`. Pembayaran Tunai: Sistem memproses pembayaran tunai (_Handle Cash Payment_).
+    - `7b`. Pembayaran Kredit: Sistem memanggil _subfunction use case_ pembacaan dan otorisasi kartu kredit (_Handle Credit Payment_).
+    - `7c`. Pembayaran Sertifikat Hadiah: Jika pelanggan menggunakan kupon/hadiah, dipanggil fungsi ekstensi (_Handle Gift Certificate Payment_).
+
+#### D. Use Case Diagram UML (NextGen POS)
+
+```mermaid
+graph LR
+    subgraph NextGenPOS ["NextGen POS System Boundary"]
+        UC_ProcessSale(["Process Sale"])
+        UC_HandleReturns(["Handle Returns"])
+        UC_ProcessRental(["Process Rental"])
+        UC_ManageUsers(["Manage Users"])
+
+        UC_CashPay(["Handle Cash Payment"])
+        UC_CreditPay(["Handle Credit Payment"])
+        UC_CheckPay(["Handle Check Payment"])
+        UC_GiftPay(["Handle Gift Certificate Payment"])
+    end
+
+    Cashier[":Cashier:"] --> UC_ProcessSale
+    Cashier --> UC_HandleReturns
+    Cashier --> UC_ProcessRental
+
+    SysAdmin[":System Administrator:"] --> UC_ManageUsers
+
+    UC_ProcessSale -. "«include»" .-> UC_CashPay
+    UC_ProcessSale -. "«include»" .-> UC_CreditPay
+    UC_ProcessSale -. "«include»" .-> UC_CheckPay
+
+    UC_GiftPay -. "«extend»\n[if gift certificate]" .-> UC_ProcessSale
+
+    UC_CreditPay --> PayAuth["«actor»\nPayment Authorization Service"]
+    UC_ProcessSale --> TaxCalc["«actor»\nTax Calculator"]
+    UC_ProcessSale --> AcctSys["«actor»\nAccounting System"]
+```
 
 ---
+
+### 3. Studi Kasus 2: Sistem Manajemen Insiden Tanggap Darurat (FRIEND)
+
+#### A. Deskripsi Kasus
+
+**FRIEND (First Responder Interactive Emergency Navigational Database)** adalah sistem informasi tanggap darurat terdistribusi untuk mengordinasikan penanganan insiden kecelakaan dan kebakaran di lapangan.
+
+#### B. Identifikasi Aktor & Peran
+
+- **FieldOfficer**: Petugas lapangan (polisi/pemadam) yang menggunakan perangkat _mobile_ untuk melaporkan darurat.
+- **Dispatcher**: Petugas pusat komando yang membuka berkas insiden dan mengalokasikan unit armada emergency.
+
+#### C. Penerapan Relasi `«include»` dan `«extend»`
+
+1. **Relasi `«include»`**: _Use case_ `AllocateResources` dan `OpenIncident` membutuhkan tampilan peta lokasi insiden secara interaktif. Fungsi ini dipisahkan ke dalam _use case_ `ViewMap` yang di-`«include»` oleh keduanya untuk menghindari duplikasi fungsi.
+2. **Relasi `«extend»`**: Ketika jaringan komunikasi nirkabel antara `FieldOfficer` dan `Dispatcher` terputus saat pelaporan insiden, _use case_ `ConnectionDown` diaktifkan secara opsional sebagai ekstensi dari `ReportEmergency` untuk menangani rekoveri koneksi.
+
+#### D. Use Case Diagram UML (FRIEND System)
+
+```mermaid
+graph LR
+    subgraph FRIEND ["FRIEND System Boundary"]
+        UC_ReportEmergency(["ReportEmergency"])
+        UC_OpenIncident(["OpenIncident"])
+        UC_AllocateResources(["AllocateResources"])
+        UC_ViewMap(["ViewMap"])
+        UC_ConnectionDown(["ConnectionDown"])
+    end
+
+    FieldOfficer[":FieldOfficer:"] -->|«initiate»| UC_ReportEmergency
+    Dispatcher[":Dispatcher:"] -->|«initiate»| UC_OpenIncident
+    Dispatcher -->|«initiate»| UC_AllocateResources
+    UC_ReportEmergency -->|«participate»| Dispatcher
+
+    UC_AllocateResources -. "«include»" .-> UC_ViewMap
+    UC_OpenIncident -. "«include»" .-> UC_ViewMap
+
+    UC_ConnectionDown -. "«extend»\n[network lost]" .-> UC_ReportEmergency
+```
+
+---
+
+### 4. Analisis Komparatif & Metodologi Penulisan Use Case Diagram
+
+|Aspek / Relasi|`«include»`|`«extend»`|
+|:--|:--|:--|
+|**Karakter Eksekusi**|Wajib (_Mandatory_). Perilaku _included use case_ selalu dijalankan saat _base use case_ dieksekusi.|Opsional (_Conditional_). Perilaku dijalankan hanya jika kondisi tertentu terpenuhi pada _extension point_.|
+|**Arah Panah UML**|Dari _Base Use Case_ menunjuk ke _Included Use Case_.|Dari _Extending Use Case_ menunjuk ke _Base Use Case_.|
+|**Tujuan Desain**|Mencegah duplikasi alur (_decoupling common sub-functions_).|Memisahkan alur pengecualian (_exception handling_) atau fitur opsional dari alur utama.|
+
+---
+
+#### Principles & Best Practices Penulisan Diagram (S1 Level):
+
+1. **Focus on Intent, Keep UI Out**: Hindari mencantumkan elemen antarmuka pengguna (seperti "Klik Tombol Submit", "Masukkan Password") sebagai _use case_. Fokuslah pada tujuan dan niat pengguna (_user goal_) seperti `Authenticate` atau `Process Sale`.
+2. **Batasan Jumlah Node**: Sebuah _use case diagram_ idealnya berfungsi sebagai ringkasan tingkat tinggi (_high-level index_). Jika sistem sangat kompleks, kelompokkan _use case_ ke dalam **Package Diagram** berdasarkan domain fungsi (misalnya package `IncidentManagement` dan `SysAdministration`).
+3. **Pembedaan Skenario vs Use Case**: _Use case_ adalah abstraksi umum yang mencakup seluruh alur sukses dan kegagalan, sedangkan **scenario** adalah satu instansiasi/jalur spesifik dari _use case_ tersebut.
+
+---
+
+💡 **Saran Diskusi Lanjutan**: Apakah Anda ingin melanjutkan dengan pembahasan pembuatan **System Sequence Diagram (SSD)** atau **Domain Class Diagram** berdasarkan alur _use case_ dari salah satu studi kasus di atas?
+
 ### Contoh 2: Proses Pengajuan Cuti Karyawan
 
 #### Identifikasi Kebutuhan
