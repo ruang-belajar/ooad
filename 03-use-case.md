@@ -171,6 +171,11 @@ Berikut adalah contoh penerapannya:
 
 ---
 
+### Best Practice
+
+ 1. **Focus on Intent, Keep UI Out**: Hindari mencantumkan elemen antarmuka pengguna (seperti "Klik Tombol Submit", "Masukkan Password") sebagai _use case_. Fokuslah pada tujuan dan niat pengguna (_user goal_) seperti `Authenticate` atau `Process Sale`.
+2. **Batasan Jumlah Node**: Sebuah _use case diagram_ idealnya berfungsi sebagai ringkasan tingkat tinggi (_high-level index_). Jika sistem sangat kompleks, kelompokkan _use case_ ke dalam **Package Diagram** berdasarkan domain fungsi.
+
 
 > 👨‍🏫 *Use Case Diagram* itu adalah *bahasa visual* untuk menjelaskan suatu sistem. Sebagaimana ia adalah *bahasa*, tidak semua orang menggunakannya dengan sempurna. Jadi, tidak menutup kemungkinan mungkin Anda akan menemukan contoh use case diagram yang tidak sesuai aturan resmi. Jangan terlalu hiraukan ketidaksesuaian atau perbedaan tersebut. Yang paling penting Anda bisa menangkap maksud yang mau disampaikan diagram tersebut.
 
@@ -237,21 +242,9 @@ Berikut adalah penjelasan rinci untuk masing-masing elemen penyusun dalam templa
 
 ---
 
-## 3. Gaya Penulisan dan Praktik Terbaik (_Best Practices_)
+## 3. Contoh Skenario Use Case
 
-Dalam menyusun spesifikasi tekstual _use case_, terdapat beberapa pedoman penulisan profesional yang harus diperhatikan:
-
-1. **Gaya Bebas Antarmuka / Esensial (_Essential / UI-Free Style_)**: Deskripsi alur harus berfokus pada **maksud aktor (_actor intent_)** dan **tanggung jawab sistem (_system responsibility_)**, bukan pada detail fisik antarmuka (_User Interface_) seperti tombol, warna, atau klik _mouse_.
-2. **Pola Transaksi Berulang (_Alternating Pattern_)**: Alur disusun secara bergantian dengan pola _"Aktor menginformasikan... / Sistem menginformasikan..."_ untuk menjaga konsistensi transaksi dan memperjelas pertukaran informasi.
-3. **Format Satu Kolom vs Dua Kolom**:
-    - _Format Satu Kolom_: Lebih ringkas, fleksibel, dan umum digunakan dalam praktik industri modern.
-    - _Format Dua Kolom_: Memisahkan langkah aksi aktor di kolom kiri dan respons sistem di kolom kanan secara visual.
-
----
-
-## 4. Contoh Skenario Use Case
-
-### Contoh 1: Sistem Point of Sale (NextGen POS)
+### Contoh Kasus 1: Sistem Point of Sale (NextGen POS)
 
 #### A. Deskripsi Kasus
 
@@ -287,7 +280,7 @@ Dalam menyusun spesifikasi tekstual _use case_, terdapat beberapa pedoman penuli
 
 ---
 
-### 3. Studi Kasus 2: Sistem Manajemen Insiden Tanggap Darurat (FRIEND)
+### Contoh Kasus 2: Sistem Manajemen Insiden Tanggap Darurat (FRIEND)
 
 #### A. Deskripsi Kasus
 
@@ -309,27 +302,7 @@ Dalam menyusun spesifikasi tekstual _use case_, terdapat beberapa pedoman penuli
 
 ---
 
-### 4. Analisis Komparatif & Metodologi Penulisan Use Case Diagram
-
-|Aspek / Relasi|`«include»`|`«extend»`|
-|:--|:--|:--|
-|**Karakter Eksekusi**|Wajib (_Mandatory_). Perilaku _included use case_ selalu dijalankan saat _base use case_ dieksekusi.|Opsional (_Conditional_). Perilaku dijalankan hanya jika kondisi tertentu terpenuhi pada _extension point_.|
-|**Arah Panah UML**|Dari _Base Use Case_ menunjuk ke _Included Use Case_.|Dari _Extending Use Case_ menunjuk ke _Base Use Case_.|
-|**Tujuan Desain**|Mencegah duplikasi alur (_decoupling common sub-functions_).|Memisahkan alur pengecualian (_exception handling_) atau fitur opsional dari alur utama.|
-
----
-
-#### Principles & Best Practices Penulisan Diagram (S1 Level):
-
-1. **Focus on Intent, Keep UI Out**: Hindari mencantumkan elemen antarmuka pengguna (seperti "Klik Tombol Submit", "Masukkan Password") sebagai _use case_. Fokuslah pada tujuan dan niat pengguna (_user goal_) seperti `Authenticate` atau `Process Sale`.
-2. **Batasan Jumlah Node**: Sebuah _use case diagram_ idealnya berfungsi sebagai ringkasan tingkat tinggi (_high-level index_). Jika sistem sangat kompleks, kelompokkan _use case_ ke dalam **Package Diagram** berdasarkan domain fungsi (misalnya package `IncidentManagement` dan `SysAdministration`).
-3. **Pembedaan Skenario vs Use Case**: _Use case_ adalah abstraksi umum yang mencakup seluruh alur sukses dan kegagalan, sedangkan **scenario** adalah satu instansiasi/jalur spesifik dari _use case_ tersebut.
-
----
-
-💡 **Saran Diskusi Lanjutan**: Apakah Anda ingin melanjutkan dengan pembahasan pembuatan **System Sequence Diagram (SSD)** atau **Domain Class Diagram** berdasarkan alur _use case_ dari salah satu studi kasus di atas?
-
-### Contoh 2: Proses Pengajuan Cuti Karyawan
+### Contoh Kasus 3: Proses Pengajuan Cuti Karyawan
 
 #### Identifikasi Kebutuhan
 
@@ -343,15 +316,15 @@ Berdasarkan hasil **identifikasi kebutuhan sistem** (_requirements identificatio
 
 Spesifikasi tekstual terstruktur (_fully dressed_) memuat seluruh bidang informasi yang dibutuhkan pengembang untuk memahami kebutuhan fungsional secara mendalam.
 
-| Bidang Spesifikasi                                       | Deskripsi / Isi Dokumentasi                                                                                                                                                                                                                                                                            |
-| :------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Nama Use Case**                                        | **Ajukan Cuti Karyawan (_Submit Vacation Request_)**                                                                                                                                                                                                                                                   |
-| **ID Use Case**                                          | **UC-HR-01**                                                                                                                                                                                                                                                                                           |
-| **Aktor Utama**                                          | Karyawan (_Employee_)                                                                                                                                                                                                                                                                                  |
-| **Aktor Pendukung**                                      | Manajer (_Manager_), Sistem Email Eksternal                                                                                                                                                                                                                                                            |
-| **Stakeholders & Interests**                             | - **Karyawan**: Ingin mengajukan cuti dengan mudah dan kepastian saldo cuti diperbarui secara akurat.- **Manajer**: Ingin menerima rincian pengajuan yang jelas untuk dasar keputusan persetujuan.- **Departemen HR**: Ingin memastikan pengajuan mematuhi aturan sisa kuota dan kebijakan perusahaan. |
-| **Prakondisi (_Preconditions_)**                         | Karyawan telah terautentikasi (_login_) ke dalam sistem dan memiliki saldo cuti aktif yang bernilai positif.                                                                                                                                                                                           |
-| **Paskakondisi (_Postconditions / Success Guarantees_)** | Permohonan cuti baru terbuat dengan status _"Pending Approval"_, saldo kuota cuti dikunci sementara, dan notifikasi email terkirim ke Manajer.                                                                                                                                                         |
+| Bidang Spesifikasi                                       | Deskripsi / Isi Dokumentasi                                                                                                                                                                                                                                                                                    |
+| :------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Nama Use Case**                                        | **Ajukan Cuti Karyawan (_Submit Vacation Request_)**                                                                                                                                                                                                                                                           |
+| **ID Use Case**                                          | **UC-HR-01**                                                                                                                                                                                                                                                                                                   |
+| **Aktor Utama**                                          | Karyawan (_Employee_)                                                                                                                                                                                                                                                                                          |
+| **Aktor Pendukung**                                      | Manajer (_Manager_), Sistem Email Eksternal                                                                                                                                                                                                                                                                    |
+| **Stakeholders & Interests**                             | - **Karyawan**: Ingin mengajukan cuti dengan mudah dan kepastian saldo cuti diperbarui secara akurat.<br>- **Manajer**: Ingin menerima rincian pengajuan yang jelas untuk dasar keputusan persetujuan.<br>- **Departemen HR**: Ingin memastikan pengajuan mematuhi aturan sisa kuota dan kebijakan perusahaan. |
+| **Prakondisi (_Preconditions_)**                         | Karyawan telah terautentikasi (_login_) ke dalam sistem dan memiliki saldo cuti aktif yang bernilai positif.                                                                                                                                                                                                   |
+| **Paskakondisi (_Postconditions / Success Guarantees_)** | Permohonan cuti baru terbuat dengan status _"Pending Approval"_, saldo kuota cuti dikunci sementara, dan notifikasi email terkirim ke Manajer.                                                                                                                                                                 |
 
 #### Main Success Path
 
@@ -393,7 +366,7 @@ Kebutuhan non-fungsional terikat secara spesifik pada eksekusi _use case_ ini:
 - **Usabilitas**: Tampilan pemilihan tanggal harus menyediakan komponen kalender visual yang interaktif.
 
 ---
-### Contoh 3: Proses Pemesanan Tiket
+### Contoh Kasus 4: Proses Pemesanan Tiket
 
 Berikut adalah contoh penerapan template _fully dressed_ untuk _use case_ **Proses Pemesanan Tiket**:
 
@@ -402,7 +375,7 @@ Berikut adalah contoh penerapan template _fully dressed_ untuk _use case_ **Pros
 | **Nama Use Case**            | **UC-02: Proses Pemesanan Tiket Bus**                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | **Aktor Utama**              | Penumpang                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | **Aktor Pendukung**          | Sistem Gerbang Pembayaran (_Payment Gateway_)                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| **Stakeholders & Interests** | - **Penumpang**: Ingin memesan kursi dengan cepat dan mendapat konfirmasi resmi.<br>- **Manajemen Otobus**: Ingin memastikan kapasitas kursi tercatat akurat dan pembayaran terverifikasi.                                                                                                                                                                                                                                                                                         |
+| **Stakeholders & Interests** | - **Penumpang**: Ingin memesan kursi dengan cepat dan mendapat konfirmasi resmi.<br>- **Manajemen Travel**: Ingin memastikan kapasitas kursi tercatat akurat dan pembayaran terverifikasi.                                                                                                                                                                                                                                                                                         |
 | **Prakondisi**               | Penumpang telah masuk (_login_) ke aplikasi dan jadwal keberangkatan bus tersedia di katalog.                                                                                                                                                                                                                                                                                                                                                                                      |
 | **Paskakondisi**             | Transaksi pemesanan tersimpan, status kursi diperbarui menjadi terpesan, dan bukti pemesanan diterbitkan.                                                                                                                                                                                                                                                                                                                                                                          |
 | **Alur Utama Kesuksesan**    | 1. Penumpang memilih rute dan tanggal keberangkatan.<br>2. Sistem menampilkan daftar jadwal bus yang tersedia.<br>3. Penumpang memilih jadwal bus dan nomor kursi.<br>4. Sistem mengunci nomor kursi sementara dan menampilkan rincian total biaya.<br>5. Penumpang mengonfirmasi pemesanan dan memilih metode pembayaran.<br>6. Sistem memproses pembayaran melalui _Payment Gateway_.<br>7. Sistem memperbarui status transaksi menjadi sukses dan menerbitkan tiket elektronik. |
