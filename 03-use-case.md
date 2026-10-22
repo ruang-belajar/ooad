@@ -119,7 +119,7 @@ Ada dua alasan utama mengapa hubungan `<<include>>` digunakan pada contoh di ata
 ### 3.2. Relasi `<extend>`
 
 
-![[files/03-uc-extend-1.png]]
+![](files/03-uc-extend-1.png)
 
 
 `<<extend>>` digunakan untuk menunjukkan bahwa sebuah Use Case (skenario) **dapat ditambahkan atau dipanggil secara opsional** ke dalam Use Case utama, asalkan syarat/kondisinya terpenuhi.
