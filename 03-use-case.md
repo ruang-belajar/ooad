@@ -64,7 +64,16 @@ Diagram Use Case UML terdiri dari empat elemen pembentuk utama:
     - Aktor diletakkan di luar kotak batas sistem.
 
 4. **Hubungan Asosiasi (_Association Relationship_)**:
-    - Garis lurus yang menghubungkan Aktor dengan Use Case untuk menunjukkan adanya komunikasi/interaksi dua arah.
+	- **Garis Solid** (Undirected Association): Menunjukkan bahwa ada komunikasi dua arah (dialog) antara Aktor dan Use Case. Sistem merespons tindakan aktor, dan aktor menerima balasan dari sistem.
+		- Penggunaan: Digunakan ketika arah inisiasi sudah sangat jelas dari konteks (misalnya aktor berada di sebelah kiri sistem), atau ketika perancang sistem merasa tidak perlu terlalu kaku mendefinisikan siapa yang memicu siapa dalam level konseptual diagram ini.
+		- _Contoh:_ Aktor `Kasir` --> Input Transaksi`. Kasir yang menekan tombol untuk memulai input.
+	- **Garis Solid + Panah** (Directed Association / Navigability): Garis lurus yang ujungnya memiliki mata panah terbuka (bukan panah tertutup/segitiga pekat).
+		- Penggunaan untuk Aktor Utama (Primary Actor): Panah digambar menunjuk dari Aktor menuju Use Case. Ini menegaskan bahwa aktor tersebutlah yang secara aktif memicu jalannya fungsi sistem.
+		- _Contoh:_ Use case "Proses Pembayaran" `----->` Aktor "Server Bank". Sistem yang "mengetuk pintu" server bank untuk memvalidasi kartu kredit, bukan server bank yang tiba-tiba membuka aplikasi.
+
+![499](files/03-uc-6.png)
+
+> 🚨 **Panah pada Use Case Diagram BUKAN aliran data (_Data Flow_).** Jangan pernah menggunakan arah panah untuk menggambarkan ke mana data mengalir (seperti pada DFD/Data Flow Diagram). Misalnya, meskipun sebuah sistem menampilkan data laporan (data mengalir dari sistem ke pengguna), arah panah asosiasinya tetap dari Pengguna ke Use Case "Lihat Laporan", karena penggunalah yang mengklik tombol untuk meminta laporan tersebut.
 
 ---
 
@@ -74,7 +83,7 @@ Untuk mengorganisasi dan menguraikan kompleksitas model use case, UML menyediaka
 
 ### 3.1. Relasi `<include>`
 
-![[files/03-uc-include-1.png]]
+![[files/03-uc-include-1.png|515]]
 
 Fungsi `<<include>>` (termasuk) digunakan untuk **menunjukkan bahwa suatu use case dasar secara wajib (mutlak) akan menjalankan use case yang dituju** agar prosesnya bisa dianggap selesai atau sah.
 
@@ -110,17 +119,15 @@ Ada dua alasan utama mengapa hubungan `<<include>>` digunakan pada contoh di ata
 ### 3.2. Relasi `<extend>`
 
 
-![[files/Pasted image 20261020232943.png]]
+![[files/03-uc-extend-1.png]]
 
 
-Pada level analisis kebutuhan pengguna, `<<extend>>` digunakan untuk menunjukkan bahwa sebuah Use Case (skenario) **dapat ditambahkan atau dipanggil secara opsional** ke dalam Use Case utama, asalkan syarat/kondisinya terpenuhi.
+`<<extend>>` digunakan untuk menunjukkan bahwa sebuah Use Case (skenario) **dapat ditambahkan atau dipanggil secara opsional** ke dalam Use Case utama, asalkan syarat/kondisinya terpenuhi.
 
-Use Case utama tetap bisa berjalan sampai selesai tanpa harus memanggil Use Case tambahan ini.
+Use Case utama tetap bisa berjalan sampai selesai tanpa harus memanggil Use Case tambahan ini. Untuk contoh di atas, penjelasannya adalah sebagai berikut:
 
 - **Skenario Utama (Base Use Case):** `Melakukan Checkout`
-    
 - **Extend Use Case (Opsional):** `Menggunakan Voucher Diskon`
-    
     - **Penjelasan:** Pembeli tetap bisa melakukan checkout dan membayar pesanan tanpa menggunakan voucher. Fitur voucher hanya "memperluas" (_extend_) proses checkout _jika_ pembeli memilih untuk memasukkan kode promo.
 
 
@@ -130,12 +137,12 @@ Use Case utama tetap bisa berjalan sampai selesai tanpa harus memanggil Use Case
 
 Membedakan relasi `<include>` dan `<extend>` merupakan salah satu poin krusial dalam pemodelan use case:
 
-|Atribut Perbandingan|Relasi `<include>`|Relasi `<extend>`|
-|:--|:--|:--|
-|**Sifat Eksekusi**|Wajib (_Mandatory_).|Opsional / Berdasarkan Kondisi (_Conditional_).|
-|**Arah Panah**|Dari _Base Use Case_ \(\rightarrow\) _Included Use Case_.|Dari _Extending Use Case_ \(\rightarrow\) _Base Use Case_.|
-|**Ketergantungan Pemahaman**|_Base use case_ membutuhkan _included use case_ agar selesai.|_Base use case_ tidak perlu tahu tentang adanya _extending use case_.|
-|**Tujuan Utama**|Penggunaan ulang fungsi umum (_reusability_).|Memisahkan aliran pengecualian/opsional (_exception handling_).|
+| Atribut Perbandingan         | Relasi `<include>`                                            | Relasi `<extend>`                                                     |
+| :--------------------------- | :------------------------------------------------------------ | :-------------------------------------------------------------------- |
+| **Sifat Eksekusi**           | Wajib (_Mandatory_).                                          | Opsional / Berdasarkan Kondisi (_Conditional_).                       |
+| **Arah Panah**               | Dari _Base Use Case_ ke _Included Use Case_.                  | Dari _Extending Use Case_ ke _Base Use Case_.                         |
+| **Ketergantungan Pemahaman** | _Base use case_ membutuhkan _included use case_ agar selesai. | _Base use case_ tidak perlu tahu tentang adanya _extending use case_. |
+| **Tujuan Utama**             | Penggunaan ulang fungsi umum (_reusability_).                 | Memisahkan aliran pengecualian/opsional (_exception handling_).       |
 
 ---
 
@@ -161,7 +168,13 @@ Berikut adalah contoh penerapannya:
 - Ditarik panah generalisasi dari aktor `Pelanggan` dan `Admin` mengarah ke aktor `Pengguna`.
 - Otomatis, `Pelanggan` dan `Admin` bisa melakukan "Login" dan "Melihat Katalog" tanpa perlu ditarik garis _use case_ baru.
 - Kemudian, Anda hanya perlu menarik garis _use case_ spesifik untuk anak aktor. Aktor `Pelanggan` dihubungkan ke _use case_ **"Checkout Barang"**, sedangkan aktor `Admin` dihubungkan ke _use case_ **"Kelola Data Produk"**.
-    
+
+---
+
+
+> 👨‍🏫 *Use Case Diagram* itu adalah *bahasa visual* untuk menjelaskan suatu sistem. Sebagaimana ia adalah *bahasa*, tidak semua orang menggunakannya dengan sempurna. Jadi, tidak menutup kemungkinan mungkin Anda akan menemukan contoh use case diagram yang tidak sesuai aturan resmi. Jangan terlalu hiraukan ketidaksesuaian atau perbedaan tersebut. Yang paling penting Anda bisa menangkap maksud yang mau disampaikan diagram tersebut.
+
+
 ---
 
 ## 4. Skenario Use Case
@@ -183,7 +196,8 @@ Sebelum menerapkan templat tekstual, penting untuk memahami bahwa spesifikasi _u
 ### 4.2. Anatomi dan Elemen Spesifikasi Use Case Tekstual (_Fully Dressed_)
 
 Templat spesifikasi tekstual _use case_ standar apa umumnya menggunakan *template Cockburn & Larman*. Template ini mengorganisasi informasi ke dalam beberapa bagian utama:
-![](files/Pasted%20image%2020261021172325.png)
+
+![](files/03-uc-template-1.png)
 
 Berikut adalah penjelasan rinci untuk masing-masing elemen penyusun dalam template _Fully Dressed Use Case_ standar Cockburn & Larman:
 
@@ -268,36 +282,8 @@ Dalam menyusun spesifikasi tekstual _use case_, terdapat beberapa pedoman penuli
 
 #### D. Use Case Diagram UML (NextGen POS)
 
-```mermaid
-graph LR
-    subgraph NextGenPOS ["NextGen POS System Boundary"]
-        UC_ProcessSale(["Process Sale"])
-        UC_HandleReturns(["Handle Returns"])
-        UC_ProcessRental(["Process Rental"])
-        UC_ManageUsers(["Manage Users"])
+![](files/03-uc-5.png)
 
-        UC_CashPay(["Handle Cash Payment"])
-        UC_CreditPay(["Handle Credit Payment"])
-        UC_CheckPay(["Handle Check Payment"])
-        UC_GiftPay(["Handle Gift Certificate Payment"])
-    end
-
-    Cashier[":Cashier:"] --> UC_ProcessSale
-    Cashier --> UC_HandleReturns
-    Cashier --> UC_ProcessRental
-
-    SysAdmin[":System Administrator:"] --> UC_ManageUsers
-
-    UC_ProcessSale -. "«include»" .-> UC_CashPay
-    UC_ProcessSale -. "«include»" .-> UC_CreditPay
-    UC_ProcessSale -. "«include»" .-> UC_CheckPay
-
-    UC_GiftPay -. "«extend»\n[if gift certificate]" .-> UC_ProcessSale
-
-    UC_CreditPay --> PayAuth["«actor»\nPayment Authorization Service"]
-    UC_ProcessSale --> TaxCalc["«actor»\nTax Calculator"]
-    UC_ProcessSale --> AcctSys["«actor»\nAccounting System"]
-```
 
 ---
 
@@ -317,28 +303,9 @@ graph LR
 1. **Relasi `«include»`**: _Use case_ `AllocateResources` dan `OpenIncident` membutuhkan tampilan peta lokasi insiden secara interaktif. Fungsi ini dipisahkan ke dalam _use case_ `ViewMap` yang di-`«include»` oleh keduanya untuk menghindari duplikasi fungsi.
 2. **Relasi `«extend»`**: Ketika jaringan komunikasi nirkabel antara `FieldOfficer` dan `Dispatcher` terputus saat pelaporan insiden, _use case_ `ConnectionDown` diaktifkan secara opsional sebagai ekstensi dari `ReportEmergency` untuk menangani rekoveri koneksi.
 
-#### D. Use Case Diagram UML (FRIEND System)
+#### D. Use Case Diagram (FRIEND System)
 
-```mermaid
-graph LR
-    subgraph FRIEND ["FRIEND System Boundary"]
-        UC_ReportEmergency(["ReportEmergency"])
-        UC_OpenIncident(["OpenIncident"])
-        UC_AllocateResources(["AllocateResources"])
-        UC_ViewMap(["ViewMap"])
-        UC_ConnectionDown(["ConnectionDown"])
-    end
-
-    FieldOfficer[":FieldOfficer:"] -->|«initiate»| UC_ReportEmergency
-    Dispatcher[":Dispatcher:"] -->|«initiate»| UC_OpenIncident
-    Dispatcher -->|«initiate»| UC_AllocateResources
-    UC_ReportEmergency -->|«participate»| Dispatcher
-
-    UC_AllocateResources -. "«include»" .-> UC_ViewMap
-    UC_OpenIncident -. "«include»" .-> UC_ViewMap
-
-    UC_ConnectionDown -. "«extend»\n[network lost]" .-> UC_ReportEmergency
-```
+![](files/03-uc-7.png)
 
 ---
 
@@ -452,7 +419,7 @@ Berikut adalah contoh penerapan template _fully dressed_ untuk _use case_ **Pros
 
 Sebuah perusahaan ritel ingin membangun platform e-commerce bernama **"TokoKita"**. Berdasarkan hasil identifikasi kebutuhan, sistem ini memfasilitasi transaksi jual-beli sebagai berikut:
 
-1. **Pembeli** dapat menjelajahi katalog barang, memasukkan produk ke keranjang belanja, dan melakukan _checkout_.
+1. **Pembeli** dapat menjelajahi katalog barang, m ja, dan melakukan _checkout_.
 2. Saat proses _checkout_, sistem secara otomatis mengeksekusi validasi ketersediaan stok produk di gudang serta perhitungan total biaya transaksi.
 3. Pembeli melakukan pembayaran dengan terhubung ke **Sistem Payment Gateway Eksternal**.
 4. Jika Pembeli memiliki _Voucher Diskon_, sistem memungkinkan Pembeli untuk mengklaim kode voucher tersebut sebagai potongan harga opsional saat _checkout_.
