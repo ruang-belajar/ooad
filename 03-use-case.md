@@ -169,6 +169,10 @@ Berikut adalah contoh penerapannya:
 - Otomatis, `Pelanggan` dan `Admin` bisa melakukan "Login" dan "Melihat Katalog" tanpa perlu ditarik garis _use case_ baru.
 - Kemudian, Anda hanya perlu menarik garis _use case_ spesifik untuk anak aktor. Aktor `Pelanggan` dihubungkan ke _use case_ **"Checkout Barang"**, sedangkan aktor `Admin` dihubungkan ke _use case_ **"Kelola Data Produk"**.
 
+**Generlalisasi Use Case:** Tidak hanya aktor, use case bisa memiliki *use case turunan* yang mewarisi fungsi dari *super-use-case*.
+
+![](files/03-uc-8.png)
+
 ---
 
 ### Best Practice
@@ -244,39 +248,60 @@ Berikut adalah penjelasan rinci untuk masing-masing elemen penyusun dalam templa
 
 ## 3. Contoh Skenario Use Case
 
-### Contoh Kasus 1: Sistem Point of Sale (NextGen POS)
+### Contoh Kasus 1: Sistem POS Kedai Kopi "Senja"
 
-#### A. Deskripsi Kasus
+Kedai Kopi "Senja" membutuhkan sistem POS baru untuk menggantikan pencatatan manual. Sistem ini harus memungkinkan Kasir untuk memasukkan pesanan, menerima pembayaran (tunai maupun kartu/e-wallet), dan mencetak struk. Di sisi lain, Manajer membutuhkan akses ke sistem untuk mengelola stok barang dan melihat laporan penjualan harian. Sistem juga terhubung dengan _Payment Gateway_ pihak ketiga untuk memvalidasi pembayaran non-tunai.
 
-**NextGen POS** adalah sistem kasir ritel berorientasi objek yang digunakan untuk mengelola transaksi penjualan di toko, kalkulasi harga dan pajak, otorisasi pembayaran kartu, serta pembaruan data akuntansi dan inventaris secara _real-time_.
+#### Identifikasi Aktor
 
-#### B. Identifikasi Aktor & Batas Sistem
+Aktor adalah entitas pengguna atau sistem eksternal yang berinteraksi dengan sistem POS.
+- **Kasir:** Pengguna yang bertugas melayani pelanggan, memasukkan pesanan, dan memproses pembayaran di area depan.
+- **Manajer:** Pengguna yang memiliki hak akses tingkat lanjut untuk memantau performa toko, inventaris, dan laporan keuangan.
+- **Payment Gateway (Aktor Eksternal):** Sistem pihak ketiga yang dihubungi oleh sistem POS untuk memvalidasi pembayaran menggunakan kartu debit, kartu kredit, atau _e-wallet_ (QRIS).
 
-- **Primary Actor**: `Cashier` (Kasir).
-- **Supporting Actors**: `Payment Authorization Service`, `Tax Calculator`, `Accounting System`.
-- **Administrative Actor**: `System Administrator`.
+## 2. Daftar _Use Case_ Utama
 
-#### C. Spesifikasi Tekstual Use Case (UC1: Process Sale)
+Tindakan-tindakan yang dapat dilakukan oleh aktor di dalam sistem:
+1. **Login:** Aktor memasukkan kredensial sebelum menggunakan sistem.
+2. **Kelola Pesanan:** Kasir memilih menu yang dipesan pelanggan dan menghitung total harga.
+    - _Include:_ **Cari Menu** (Bagian wajib dari mengelola pesanan).
+3. **Proses Pembayaran:** Kasir memasukkan nominal uang yang dibayar atau memilih metode pembayaran.
+    - _Extend:_ **Cetak Struk** (Opsional/tambahan jika pelanggan meminta struk fisik atau jika pembayaran berhasil).
+4. **Kelola Inventaris/Stok:** Manajer menambah, mengubah, atau menghapus data stok bahan baku.
+5. **Lihat Laporan Penjualan:** Manajer mengakses data pendapatan, menu terlaris, dan riwayat transaksi.
+6. **Logout:** Aktor keluar dari sistem untuk menjaga keamanan akun.
 
-- **Primary Actor**: Kasir.
-- **Main Success Scenario (Alur Utama)**:
-    1. Pelanggan datang ke kasir membawa barang belanjaan.
-    2. Kasir memulai transaksi penjualan baru.
-    3. Kasir memasukkan ID barang; Sistem mencatat baris item dan menampilkan deskripsi serta harga running total.
-    4. Kasir mengulang langkah 3 hingga selesai.
-    5. Sistem menampilkan total harga beserta perhitungan pajak.
-    6. Pelanggan melakukan pembayaran dan sistem memproses pembayaran.
-    7. Sistem mencatat penjualan yang selesai dan mengirimkan data ke sistem Akuntansi dan Inventaris.
-    8. Sistem mencetak struk/nota belanja.
-- **Extensions (Alur Alternatif/Ekstensi)**:
-    - `7a`. Pembayaran Tunai: Sistem memproses pembayaran tunai (_Handle Cash Payment_).
-    - `7b`. Pembayaran Kredit: Sistem memanggil _subfunction use case_ pembacaan dan otorisasi kartu kredit (_Handle Credit Payment_).
-    - `7c`. Pembayaran Sertifikat Hadiah: Jika pelanggan menggunakan kupon/hadiah, dipanggil fungsi ekstensi (_Handle Gift Certificate Payment_).
+## 3. Pemetaan Relasi (Bentuk Teks dari Diagram)
 
-#### D. Use Case Diagram UML (NextGen POS)
+Jika digambarkan dalam sebuah _Use Case Diagram_, relasi antara aktor dan _use case_ akan ditarik menggunakan garis sebagai berikut:
 
-![](files/03-uc-5.png)
+|**Aktor**|**Use Case yang Diakses**|**Keterangan Relasi Tambahan**|
+|---|---|---|
+|**Kasir**|Login, Kelola Pesanan, Proses Pembayaran, Logout|Mengakses fungsi operasional harian.|
+|**Manajer**|Login, Kelola Inventaris, Lihat Laporan Penjualan, Logout|Mengakses fungsi _back-office_ dan manajerial.|
+|**Payment Gateway**|Proses Pembayaran|Berinteraksi secara sistem setiap kali Kasir memilih metode pembayaran non-tunai.|
 
+## 4. Contoh Skenario _Use Case_ (Proses Pembayaran)
+
+Untuk memperjelas jalannya sistem, berikut adalah penjabaran detail (skenario) dari salah satu _use case_ paling krusial: **Proses Pembayaran**.
+
+- **Aktor Utama:** Kasir
+- **Kondisi Awal (Pre-condition):** Kasir telah selesai memasukkan semua pesanan ke dalam _cart_ dan sistem telah menampilkan total harga.
+- **Alur Normal:**
+    1. Kasir menekan tombol "Bayar".
+    2. Sistem menampilkan pilihan metode pembayaran (Tunai, Debit, QRIS).
+    3. Kasir memilih "Tunai" dan memasukkan nominal uang yang diterima dari pelanggan.
+    4. Sistem menghitung kembalian dan menyimpan data transaksi.
+    5. Sistem memperbarui stok inventaris secara otomatis.
+    6. Sistem mencetak struk belanja (_Extend_).
+        
+- **Alur Alternatif (Non-Tunai):**
+    1. Pada langkah 3, Kasir memilih "QRIS".
+    2. Sistem mengirimkan permintaan validasi ke **Payment Gateway**.
+    3. Payment Gateway memberikan respon pembayaran berhasil.
+    4. Kembali ke langkah 4 pada alur normal.
+        
+- **Kondisi Akhir (Post-condition):** Transaksi selesai dicatat, inventaris berkurang, dan struk tercetak.
 
 ---
 
