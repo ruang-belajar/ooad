@@ -85,7 +85,7 @@ Untuk mengorganisasi dan menguraikan kompleksitas model use case, UML menyediaka
 
 ### 3.1. Relasi `<include>`
 
-![[files/03-uc-include-1.png|515]]
+![](files/03-uc-include-1.png)
 
 Fungsi `<<include>>` (termasuk) digunakan untuk **menunjukkan bahwa suatu use case dasar secara wajib (mutlak) akan menjalankan use case yang dituju** agar prosesnya bisa dianggap selesai atau sah.
 
