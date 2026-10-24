@@ -33,11 +33,13 @@ Kebutuhan sistem secara umum dikategorikan menjadi dua jenis utama:
 
 ### 2.1. Konsep Dasar Use Case
 
-Konsep _Use Case_ pertama kali diperkenalkan oleh **Ivar Jacobson** dalam metodologi _Object-Oriented Software Engineering_ (OOSE) / _Objectory_. _Use Case_ merupakan pendekatan utama dalam analisis berorientasi objek untuk menangkap kebutuhan fungsional dari sudut pandang pandang eksternal (pengguna).
+Konsep _Use Case_ pertama kali diperkenalkan oleh **Ivar Jacobson** dalam metodologi _Object-Oriented Software Engineering_ (OOSE) / _Objectory_. **_Use Case_ merupakan pendekatan utama dalam analisis berorientasi objek untuk menangkap kebutuhan fungsional dari sudut pandang pandang eksternal (pengguna)**.
 
-- **Definisi**: Use case adalah abstraksi yang menggambarkan sekelompok skenario interaksi antara aktor luar dan sistem untuk mencapai suatu tujuan bernilai (_observable result of value_) bagi aktor tersebut.
-- **Perspektif _Black-Box_**: Dalam pemodelan use case, sistem diperlakukan sebagai _black box_. Pemodelan hanya berfokus pada **apa (_what_)** yang dilakukan sistem, bukan **bagaimana (_how_)** struktur internal atau kode program mengimplementasikannya.
-- **Batas Sistem (_System Boundary_)**: Pemodelan use case secara jelas mendefinisikan ruang lingkup sistem (_scope_); apa yang berada di dalam sistem (_use case_) dan apa yang berada di luar sistem (_aktor_).
+Use case menjadi abstraksi yang menggambarkan sekelompok skenario interaksi antara aktor luar dan sistem untuk mencapai suatu tujuan bernilai (_observable result of value_) bagi aktor tersebut.
+
+**Dalam pemodelan use case, sistem diperlakukan sebagai _black box_**. Pemodelan hanya berfokus pada **apa (_what_)** yang dilakukan sistem, bukan **bagaimana (_how_)** struktur internal atau kode program mengimplementasikannya.
+
+Pemodelan use case secara jelas mendefinisikan ruang lingkup sistem (_scope_); apa yang berada di dalam sistem (_use case_) dan apa yang berada di luar sistem (_aktor_).
 
 ---
 
@@ -71,7 +73,7 @@ Diagram Use Case UML terdiri dari empat elemen pembentuk utama:
 		- Penggunaan untuk Aktor Utama (Primary Actor): Panah digambar menunjuk dari Aktor menuju Use Case. Ini menegaskan bahwa aktor tersebutlah yang secara aktif memicu jalannya fungsi sistem.
 		- _Contoh:_ Use case "Proses Pembayaran" `----->` Aktor "Server Bank". Sistem yang "mengetuk pintu" server bank untuk memvalidasi kartu kredit, bukan server bank yang tiba-tiba membuka aplikasi.
 
-![499](files/03-uc-6.png)
+![](files/03-uc-9.png)
 
 > 🚨 **Panah pada Use Case Diagram BUKAN aliran data (_Data Flow_).** Jangan pernah menggunakan arah panah untuk menggambarkan ke mana data mengalir (seperti pada DFD/Data Flow Diagram). Misalnya, meskipun sebuah sistem menampilkan data laporan (data mengalir dari sistem ke pengguna), arah panah asosiasinya tetap dari Pengguna ke Use Case "Lihat Laporan", karena penggunalah yang mengklik tombol untuk meminta laporan tersebut.
 
