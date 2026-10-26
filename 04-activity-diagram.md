@@ -40,36 +40,23 @@ Notasi UML Activity Diagram terbagi menjadi empat kategori elemen utama: _Action
 ### B. Control Nodes (Simpul Kontrol)
 
 Simpul kontrol mengordinasikan alur kontrol eksekusi di dalam diagram:
-
-1. **Initial Node (Simpul Awal)**:
-    - Menandai titik awal dimulainya eksekusi aktivitas.
-    - Notasi: Lingkaran hitam padat (_solid black circle_).
-2. **Activity Final Node (Simpul Akhir Aktivitas)**:
-    - Menghentikan seluruh alur kontrol dan alur objek dalam aktivitas tersebut. Begitu token mencapai simpul ini, seluruh aktivitas berhenti.
-    - Notasi: Lingkaran hitam di dalam lingkaran putih (_bull's eye_).
-3. **Flow Final Node (Simpul Akhir Alur)**:
-    - Menghentikan alur spesifik tertentu yang memasukinya tanpa mematikan alur eksekusi paralel lainnya yang sedang berjalan.
-    - Notasi: Lingkaran dengan tanda silang 'X' di dalamnya.
-4. **Decision Node (Simpul Keputusan) & Merge Node (Simpul Penggabungan)**:
-    - **Decision Node**: Memiliki satu alur masuk dan dua atau lebih alur keluar yang memiliki kondisi penjaga (_guard condition_) berformat `[kondisi]`. Bertujuan untuk mengarahkan alur ke salah satu jalur berdasarkan evaluasi kondisi boolean.
-    - **Merge Node**: Memiliki dua atau lebih alur masuk dan satu alur keluar. Digunakan untuk menyatukan kembali jalur-jalur alternatif yang sebelumnya dipisahkan oleh Decision Node.
-    - Notasi keduanya: Bentuk belah ketupat (_diamond shape_).
-5. **Fork Node (Simpul Percabangan Paralel) & Join Node (Simpul Sinkronisasi Paralel)**:
-    - **Fork Node**: Memiliki satu alur masuk dan beberapa alur keluar paralel. Digunakan untuk memecah alur kontrol menjadi beberapa _thread_ eksekusi yang berjalan secara bersamaan (_concurrent_).
-    - **Join Node**: Memiliki beberapa alur masuk paralel dan satu alur keluar. Bertindak sebagai titik sinkronisasi di mana alur keluar baru akan berjalan setelah **semua** alur masuk selesai dieksekusi.
-    - Notasi keduanya: Batang garis tebal horizontal atau vertikal (_thick bar_ / _synchronization bar_).
+ ![](files/04-ad-1.png)
 
 ## C. Object Nodes & Object Flows
 
-- **Object Node**: Mewakili entitas objek atau data yang diproduksi, dikonsumsi, atau ditransformasikan oleh suatu tindakan.
-- **Notasi Objek**: Persegi panjang berisi nama kelas/objek, yang dapat dilengkapi dengan status objek dalam kurung siku `[state]`.
+![](files/Pasted%20image%2020261026220159.png)
+
+- **Object Node**: Mewakili entitas objek atau data yang diproduksi, dikonsumsi, atau ditransformasikan oleh suatu tindakan. Objek node bisa dilengkapi dengan status objek dalam kurung siku `[state]`.
 - **Object Flow**: Garis putus-putus atau panah berarah yang menghubungkan tindakan dengan simpul objek untuk memperlihatkan perubahan status data.
+- **Action Node**: Mewakili action/proses
 
 ### D. Activity Partitions / Swimlanes
 
 - **Activity Partitions (Swimlanes)** membagi diagram menjadi kolom atau baris vertikal/horizontal.
 - **Fungsi**: Memperjelas penetapan tanggung jawab (_responsibility assignment_) dengan menetapkan setiap tindakan ke dalam partisi milik aktor, unit organisasi, atau bagian sistem tertentu.
 - **Titik Koordinasi Lintas Partisi**: Panah transisi yang menyeberangi garis partisi mengindikasikan adanya titik serah-terima (_handoff_) atau interaksi antar entitas bisnis.
+
+![](files/Pasted%20image%2020261026222413.png)
 
 ---
 
@@ -130,41 +117,9 @@ Diagram ini dibagi secara vertikal menjadi dua kolom partisi (_swimlanes_) untuk
 
 ---
 
-### 4.2 Pemrosesan dan Pemenuhan Pesanan (_Customer Order Processing & Fulfillment_)
+### 4.2 Sistem Pengajuan Cuti Karyawan
 
-Berikut ontoh activity diagram *proses penanganan pesanan konsumen*.
-
-![](files/03-activity-2.png)
-
-#### Penjelasan dan Pembedahan Semantik Activity Diagram
-
-##### 1. Partisi Responsibilitas (_Activity Partitions / Swimlanes_)
-
-Diagram terbagi secara vertikal menjadi tiga kolom partisi (_swimlanes_) untuk menegaskan pembagian peran dan tanggung jawab antar unit organisasi:
-
-- **`Customer`**: Memodelkan aksi yang dilakukan langsung oleh pelanggan, seperti membuat pesanan (_Place Order_) dan menerima konfirmasi.
-- **`Order Processing`**: Memodelkan fungsi sistem pelayanan dan entitas pemrosesan transaksi, seperti validasi data pelanggan (_Validate Customer Details_), pemrosesan pembayaran (_Process Payment_), pembaruan status pesanan, dan pengiriman email konfirmasi.
-- **`Fulfillment`**: Memodelkan aktivitas fisik di bagian gudang dan logistik, seperti perakitan barang (_Assemble Items_), pengemasan (_Package Order_), hingga pengiriman barang (_Ship Order_).
-
-##### 2. Alur Objek dan Transmisi Data (_Object Flow_)
-
-Salah satu keunggulan notasi UML Activity Diagram adalah kemampuannya memperlihatkan bagaimana objek data berubah status sepanjang alur kerja dieksekusi:
-
-- **`:Order [placed]`**: Objek pesanan yang baru dibuat oleh pelanggan dengan status _placed_, menjadi input bagi sistem untuk memvalidasi dan memproses pembayaran.
-- **`:Order [processing]`**: Objek pesanan yang telah dikonfirmasi pembayarannya dan sedang dalam tahap penyiapan barang.
-- **`:Order [shipped]`**: Objek pesanan yang telah selesai dikemas dan diserahkan ke bagian ekspedisi untuk dikirimkan ke pelanggan.
-
-##### 3. Simpul Kontrol: Keputusan dan Konkurensi Paralel
-
-1. **Decision Node & Merge Node (Simpul Keputusan & Penggabungan)**:
-    - **`Order Valid?`**: Memeriksa kelengkapan data pesanan pelanggan. Jika tidak valid, alur kembali ke tahap pengisian pesanan (_Place Order_).
-    - **`Payment Successful?`**: Menguji keberhasilan transaksi pembayaran. Jika gagal, sistem memicu aksi _Notify Customer of Failure_.
-    - **`Items Available?`**: Memeriksa ketersediaan stok barang di gudang. Jika stok kosong, sistem melakukan _Backorder Items_ sebelum masuk ke tahap pengiriman.
-2. **Fork Node & Join Node (Batang Percabangan dan Sinkronisasi Paralel)**:
-    - **`Fork Bar` (Awal Pemrosesan Paralel)**: Menerima satu alur setelah pembayaran berhasil dan memecahnya menjadi dua alur paralel yang berjalan bersamaan:
-        1. Pembaruan status internal pesanan pada sistem (`Update Order Status`).
-        2. Penyiapan dan pengemasan fisik barang di gudang (`Assemble Items` dan `Package Order`).
-    - **`Join Bar` (Sinkronisasi Akhir)**: Menghubungkan kembali alur konfirmasi sistem dengan alur fisik pengiriman barang (`Ship Order`). Email konfirmasi akhir (_Send Confirmation Email_) hanya dikirimkan setelah barang selesai dikirim **dan** status sistem diperbarui.
+![](files/Pasted%20image%2020261026235554.png)
 
 
 ---
