@@ -40,11 +40,15 @@ Notasi UML Activity Diagram terbagi menjadi empat kategori elemen utama: _Action
 ### B. Control Nodes (Simpul Kontrol)
 
 Simpul kontrol mengordinasikan alur kontrol eksekusi di dalam diagram:
- ![](files/04-ad-1.png)
+ ![](files/04-ad-4.png)
+
+#### Contoh
+
+![](files/04-ad-5.png)
 
 ## C. Object Nodes & Object Flows
 
-![](files/Pasted%20image%2020261026220159.png)
+![](files/04-ad-2.png)
 
 - **Object Node**: Mewakili entitas objek atau data yang diproduksi, dikonsumsi, atau ditransformasikan oleh suatu tindakan. Objek node bisa dilengkapi dengan status objek dalam kurung siku `[state]`.
 - **Object Flow**: Garis putus-putus atau panah berarah yang menghubungkan tindakan dengan simpul objek untuk memperlihatkan perubahan status data.
@@ -56,7 +60,7 @@ Simpul kontrol mengordinasikan alur kontrol eksekusi di dalam diagram:
 - **Fungsi**: Memperjelas penetapan tanggung jawab (_responsibility assignment_) dengan menetapkan setiap tindakan ke dalam partisi milik aktor, unit organisasi, atau bagian sistem tertentu.
 - **Titik Koordinasi Lintas Partisi**: Panah transisi yang menyeberangi garis partisi mengindikasikan adanya titik serah-terima (_handoff_) atau interaksi antar entitas bisnis.
 
-![](files/Pasted%20image%2020261026222413.png)
+![](files/04-ad-3.png)
 
 ---
 
@@ -124,10 +128,12 @@ Diagram ini dibagi secara vertikal menjadi dua kolom partisi (_swimlanes_) untuk
 
 ---
 
-## 5. Aturan Tata Kelola & _Best Practices_
+## 5. _Best Practices_
 
 Dalam menyusun Activity Diagram ada beberapa kaidah-kaidah yang penting untuk kita perhatikan:
 
+- **Kejelasan Titik Awal dan Titik Akhir (Initial & Final Nodes)**
+	- Setiap diagram aktivitas yang lengkap dan valid wajib memiliki titik awal (start point) dan titik akhir (end point) yang didefinisikan secara eksplisit untuk menjaga kejelasan batasan eksekusi proses
 - **Prinsip Mutually Exclusive pada Guard Conditions**:
     - Kondisi pada setiap alur keluar dari _Decision Node_ harus saling lepas (_mutually exclusive_) dan mencakup seluruh kemungkinan (_collectively exhaustive_). Gunakan kondisi `[else]` untuk menangani kondisi yang tersisa.
 - **Keseimbangan Fork dan Join**:
@@ -211,6 +217,40 @@ Sebuah platform _e-commerce_ memodelkan transaksi pembelian barang yang melibatk
 2. Sertakan _Object Nodes_ (`:Pesanan`) yang memperlihatkan transisi status objek (_state transition_) sepanjang alur proses.
 3. Petakan kondisi pengecualian (_exception/failure flow_) pada proses pembayaran.
 
+---
+
+### Soal 4: **Studi Kasus Proses Transaksi Servis Motor di Bengkel**
+
+Proses transaksi servis motor dimulai saat pelanggan datang ke bengkel dan mendaftarkan kendaraannya di meja penerimaan. Petugas penerima mencatat data pelanggan, identitas sepeda motor, serta keluhan atau jenis layanan yang diinginkan ke dalam sistem, lalu mencetak formulir perintah kerja.
+
+Petugas penerima menyerahkan formulir perintah kerja tersebut kepada mekanik. Mekanik kemudian membawa sepeda motor ke area pengerjaan dan melakukan pemeriksaan awal. Pada tahap ini, terdapat kondisi pengecekan kondisi kendaraan.
+
+Jika mekanik menemukan adanya kerusakan tambahan di luar keluhan awal yang memerlukan penggantian suku cadang, mekanik menginformasikannya kepada petugas penerima. Petugas penerima lalu menghubungi pelanggan untuk meminta persetujuan estimasi biaya dan tindakan perbaikan tambahan. Apabila pelanggan menolak, mekanik hanya mengerjakan servis sesuai kesepakatan awal. Sebaliknya, jika pelanggan menyetujui, daftar perbaikan tambahan langsung dimasukkan ke dalam rincian pengerjaan.
+
+Setelah rencana perbaikan dipastikan, proses berlanjut ke dua aktivitas yang berjalan secara bersamaan. Aktivitas pertama adalah mekanik melakukan tindakan servis dan perbaikan pada motor. Aktivitas kedua adalah petugas bagian suku cadang mengambil komponen yang dibutuhkan dari gudang dan menginput rincian barang tersebut ke dalam sistem tagihan.
+
+Kedua aktivitas paralel tersebut bertemu kembali setelah mekanik selesai memperbaiki motor serta melakukan uji coba kelayakan, dan petugas suku cadang telah menyelesaikan pencatatan komponen. Mekanik menyerahkan motor ke area penyerahan dan memberikan berkas pengerjaan yang sudah selesai ke meja kasir.
+
+Kasir mencetak struk tagihan akhir yang mencakup biaya jasa dan harga suku cadang. Pelanggan dipanggil menuju kasir untuk melakukan pembayaran secara tunai atau non-tunai. Setelah pembayaran berhasil diverifikasi, kasir menyerahkan kuitansi pembayaran beserta kunci motor. Pelanggan mengambil sepeda motor dan meninggalkan lokasi bengkel, menandai seluruh rangkaian transaksi servis telah selesai.
+
+#### Instruksi Soal
+
+1. Buatlah Activity Diagram lengkap dengan _Swimlane_
+
+---
+### Soal 5: Analisa Activity Diagram
+
+Analisa activity diagram berikut.
+
+![](files/04-ad-soal-1.png)
+
+
+![](files/04-ad-soal-2.png)
+
+
+
+#### Instruksi Soal
+1. cari apa yang menjadi kesalahan dari activity diagram di atas
 
 ---
 ---

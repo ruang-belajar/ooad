@@ -73,6 +73,8 @@ OMG secara resmi mengadopsi **UML versi 1.1** sebagai standar pemodelan industri
         - **UML Infrastructure**: Mendefinisikan konstruk meta-metamodel dasar yang mendasari bahasa pemodelan (Meta Object Facility / MOF).
         - **UML Superstructure**: Mendefinisikan konstruk tingkat pengguna untuk diagram-diagram struktur dan perilaku.
     - **UML 2.5.1 (2017)**: Diterbitkan sebagai spesifikasi yang disederhanakan dan terstandarisasi secara internasional di bawah standar **ISO/IEC 19505**.
+    - Download [dokumentasi UML 2.5](https://www.omg.org/spec/UML/2.5/PDF)
+    - Download [dokumentasi UML 2.5.1](https://www.omg.org/spec/UML/2.5.1/PDF)    - 
 
 ---
 
