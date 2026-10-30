@@ -123,7 +123,7 @@ Diagram ini dibagi secara vertikal menjadi dua kolom partisi (_swimlanes_) untuk
 
 ### 4.2 Sistem Pengajuan Cuti Karyawan
 
-![](files/Pasted%20image%2020261026235554.png)
+![](files/04-ad-6.png)
 
 
 ---
