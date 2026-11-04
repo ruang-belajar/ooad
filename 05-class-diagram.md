@@ -19,7 +19,7 @@ Di dalam UML, sebuah kelas digambarkan dalam bentuk **kotak persegi panjang yang
 +----------------------------------------+
 | - atribut1 : tipeData                  |  <-- Kompartemen 2: Atribut
 | # atribut2 : tipeData = nilaiAwal      |
-+-------------------------------------------------------+
++----------------------------------------+
 | + operasi1(param : tipe) : return type |  <-- Kompartemen 3: Method
 | + operasi2() : void                    |
 +----------------------------------------+
@@ -69,6 +69,8 @@ Kelas-kelas di dalam sistem tidak berdiri sendiri, melainkan saling berkolaboras
 
 #### A. Asosiasi (_Association_)
 
+![](files/05-cd-asosiasi-2.png)
+
 - **Definisi**: Menunjukkan hubungan struktural statis atau koneksi semantik antar instansi kelas yang berbeda.
 - **Arah Navigasi (_Navigability_)**:
     - **Bidireksional**: Garis lurus tanpa panah, menandakan kedua kelas saling mengetahui eksistensi satu sama lain.
@@ -81,13 +83,22 @@ Kelas-kelas di dalam sistem tidak berdiri sendiri, melainkan saling berkolaboras
     - `m..n` : Rentang spesifik dari \(m\) hingga \(n\).
 - **Kelas Asosiasi (_Association Class_)**: Digunakan ketika hubungan asosiasi antara dua kelas itu sendiri memiliki atribut atau operasi tambahan. Digambarkan dengan kotak kelas yang dihubungkan menggunakan garis putus-putus ke garis asosiasi utama.
 
+![](files/05-cd-class-association-1.png)
+
 ---
 
 #### B. Agregasi (_Shared Aggregation_)
 
-- **Definisi**: Bentuk khusus asosiasi yang menyatakan hubungan bagian-keseluruhan (_whole-part_) secara **lemah** (_weak ownership_).
-- **Sifat Lifecycle**: Objek bagian (_part_) dapat berdiri sendiri dan **tidak bergantung pada siklus hidup** objek keseluruhan (_whole_). Jika objek induk dihapus, objek bagian tetap ada di dalam sistem.
-- **Notasi**: Garis lurus dengan belah ketupat kosong (_hollow diamond_) pada sisi kelas induk (_whole_).
+**Shared Aggregation (Agregasi)** adalah jenis relasi dalam class diagram UML yang menggambarkan hubungan bagian dari keseluruhan (_whole-part_) atau hubungan _"has-a"_ yang bersifat **lemah** (_weak relationship_).
+
+Karakteristik utamanya meliputi:
+- **Siklus Hidup Independen:** Objek bagian (_part_) tidak bergantung secara penuh pada objek keseluruhan (_whole_). Jika objek keseluruhan dihancurkan atau dihapus, objek bagian tetap ada (_exist_).
+- **Dapat Berbagi (_Shared_):** Objek bagian dapat dihubungkan atau dimiliki oleh lebih dari satu objek keseluruhan secara bersamaan.
+- **Notasi UML:** Digambarkan dengan garis lurus berujung **simbol belah ketupat / diamond kosong (`♢`)** di sisi kelas yang bertindak sebagai keseluruhan (_whole_).
+
+**Contoh:** Relasi antara **Jurusan** ♢— **Dosen**. Jurusan memiliki dosen, namun jika sebuah jurusan dibubarkan, objek Dosen tidak ikut terhapus dan tetap dapat mengajar atau terhubung ke jurusan lainnya.
+
+![](files/05-cd-aggregation-1.png)
 
 ---
 
@@ -97,6 +108,8 @@ Kelas-kelas di dalam sistem tidak berdiri sendiri, melainkan saling berkolaboras
 - **Sifat Lifecycle**: Terdapat **ketergantungan eksistensi (_existential dependency_)**. Objek bagian (_part_) dimiliki secara eksklusif oleh satu objek induk (_whole_). **Jika objek induk dihapus, secara otomatis seluruh objek bagian di dalamnya akan ikut terhapus (_coincident lifetime_)**.
 - **Notasi**: Garis lurus dengan belah ketupat terisi penuh (_filled diamond_) pada sisi kelas induk (_whole_).
 
+![](files/05-cd-composite-1.png)
+
 ---
 
 #### D. Generalisasi / Pewarisan (_Generalization / Inheritance_)
@@ -104,6 +117,8 @@ Kelas-kelas di dalam sistem tidak berdiri sendiri, melainkan saling berkolaboras
 - **Definisi**: Hubungan hirarki klasifikasi yang menyatakan hubungan **"is-a"** antara kelas umum (_superclass_) dan kelas yang lebih spesifik (_subclass_).
 - **Sifat**: Subkelas mewarisi seluruh atribut, operasi, dan relasi dari superkelasnya, serta dapat menambahkan atribut/metode baru atau melakukan _override_.
 - **Notasi**: Garis lurus dengan panah segitiga kosong (_hollow triangular arrowhead_) menunjuk ke arah superkelas.
+
+![](files/05-cd-generalisasi-1.png)
 
 ---
 
@@ -113,12 +128,16 @@ Kelas-kelas di dalam sistem tidak berdiri sendiri, melainkan saling berkolaboras
 - **Penggunaan**: Umumnya digunakan ketika suatu kelas menggunakan kelas lain sebagai parameter metode, variabel lokal deklaratif, atau tipe pengembalian temporer.
 - **Notasi**: Garis putus-putus dengan panah terbuka (_dashed line with open arrowhead_) menunjuk ke kelas yang dibutuhkan.
 
+![](files/05-cd-dependency-1.png)
+
 ---
 
 #### F. Realisasi (_Realization_)
 
 - **Definisi**: Hubungan semantik di mana suatu kelas atau komponen mengimplementasikan kontrak atau spesifikasi yang ditetapkan oleh sebuah _interface_.
 - **Notasi**: Garis putus-putus dengan panah segitiga kosong (_dashed line with hollow triangle_) menunjuk ke arah antarmuka (_interface_).
+
+![](files/05-cd-realization-1.png)
 
 ---
 
