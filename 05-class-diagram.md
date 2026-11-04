@@ -1,11 +1,11 @@
-# Domain Model & Activity Diagram
+# Domain Model & Class Diagram
 ---
 
 ## 1. Pendahuluan: Conceptual Modeling
 
 Dalam tahapan **Object-Oriented Analysis (OOA)**, fokus utama pengembang adalah memahami dan memodelkan masalah bisnis atau ranah aplikasi (problem domain) dari sudut pandang entitas nyata, tanpa terdistraksi oleh rincian implementasi perangkat lunak seperti basis data, antarmuka pengguna, atau manajemen memori.
 
-**Model Domain** (sering disebut juga sebagai _Conceptual Model_ atau _Analysis Object Model_) adalah representasi visual dari kelas-kelas konseptual atau objek-objek dunia nyata dalam ranah perhatian tertentu. Model ini berfungsi sebagai kamus visual yang mendefinisikan kosa kata, abstraksi, dan relasi yang dipahami oleh pakar domain dan pengguna sistem.
+**Domain Domain** (sering disebut juga sebagai _Conceptual Model_ atau _Analysis Object Model_) adalah representasi visual dari kelas-kelas konseptual atau objek-objek dunia nyata dalam ranah perhatian tertentu. Model ini berfungsi sebagai kamus visual yang mendefinisikan kosa kata, abstraksi, dan relasi yang dipahami oleh pakar domain dan pengguna sistem.
 
 ```mermaid
 classDiagram
