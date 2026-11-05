@@ -352,12 +352,12 @@ Tabel berikut menunjukkan evolusi dan perbedaan mendasar antara _Conceptual Mode
 
 _Ciri: Tanpa operasi/metode, tanpa visibilitas, hanya nama kelas konseptual, atribut primitif, dan garis asosiasi._
 
-![[files/05-cd-5.webp|600]]
+![|600](files/05-cd-5.webp)
 #### Design Class Diagram / DCD (Tahap Desain)
 
 _Ciri: Memuat visibilitas akses (`-`, `+`), tipe data teknis, metode/operasi lengkap beserta parameter, dan panah arah navigasi._
 
-![[files/05-cd-6.webp|600]]
+![|600](files/05-cd-6.webp)
 
 
 ---
