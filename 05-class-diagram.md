@@ -134,85 +134,7 @@ Karakteristik utamanya meliputi:
 
 Berikut adalah contoh pemodelan **Class Diagram** terpadu untuk Sistem Akademik Perguruan Tinggi yang mencakup seluruh notasi dan relasi UML di atas:
 
-```mermaid
-classDiagram
-    %% Deklarasi Superclass / Abstract Class
-    class User {
-        <<abstract>>
-        #userId: String
-        #name: String
-        #email: String
-        +getProfile() String
-    }
-    
-    
-
-    %% Subclasses
-    class Student {
-        -studentId: String
-        -gpa: double
-        +enrollCourse(course: Course) void
-    }
-
-    class Lecturer {
-        -employeeId: String
-        -salary: double
-        +teachCourse(course: Course) void
-    }
-
-    %% Inheritance (Generalization) & Realization
-    User <|-- Student : Generalization
-    User <|-- Lecturer : Generalization
-    IPayable <|.. Student : Realization
-
-    %% Composition (Strong Whole-Part)
-    class University {
-        -univName: String
-        +addDepartment(dept: Department) void
-    }
-
-    class Department {
-        -deptCode: String
-        -deptName: String
-    }
-
-    University *-- "1..*" Department : Composition
-
-    %% Aggregation (Weak Whole-Part)
-    Department o-- "0..*" Lecturer : Aggregation
-
-    %% Classes & Association
-    class Course {
-        -courseCode: String
-        -title: String
-        -credits: int
-        +getDetails() String
-    }
-    
-    %% Deklarasi Interface
-    class IPayable {
-        <<interface>>
-        +processPayment(amount: double) bool
-    }
-
-    Lecturer "1" --> "1..*" Course : teaches
-    Student "1..*" --> "1..*" Course : enrolls
-
-    %% Association Class (diwakili dengan dependensi pada Mermaid)
-    class Enrollment {
-        -enrollmentDate: Date
-        -grade: String
-        +calculateFinalGrade() String
-    }
-    Student ..> Enrollment
-    Course ..> Enrollment
-
-    %% Dependency
-    class GradeReportPrinter {
-        +printReport(s: Student) void
-    }
-    GradeReportPrinter ..> Student : Dependency (uses)
-```
+![](files/05-cd-10.webp)
 
 ---
 
@@ -267,9 +189,7 @@ Pemodelan konseptual (_conceptual modeling_) atau _Domain Modeling_ menggunakan 
 
 Meskipun menggunakan notasi diagram kelas UML yang sama dengan perancangan perangkat lunak, pemodelan konseptual diterapkan dari **perspektif konseptual/esensial** (_conceptual perspective_). 
 
-> 💡 Dengan demikian *Conceptual Modeling* mirip dengan class diagram yang disederhanakan.
-
-Konsep atau kelas konseptual digambarkan menggunakan simbol kotak persegi seperti classi diagram, tanpa method. Ia hanya terdiri dari kotak untuk Nama Kelas dan Atribut.
+>  🧑‍🏫 Dengan demikian *Conceptual Modeling* mirip dengan class diagram yang disederhanakan. Konsep atau kelas konseptual digambarkan menggunakan simbol kotak persegi seperti class diagram, tanpa method. Ia hanya terdiri dari kotak untuk Nama Kelas dan Atribut.
 
 ### 2.3. Karakteristik dan Batasan Notasi Model Konseptual
 
@@ -396,3 +316,6 @@ Studi Kasus Sistem Manajemen Rumah Sakit Rancanglah sebuah Class Diagram berdasa
 - Seorang `Pasien` dapat membuat banyak `Janji Temu`, tetapi satu `Janji Temu` hanya ditujukan untuk satu `Pasien`.
 - Seorang `Dokter` dapat memiliki banyak `Janji Temu` dengan pasien yang berbeda-beda.
 - Class `Dokter` dan `Perawat` merupakan bentuk spesialisasi (turunan) dari class `Pegawai` yang memiliki atribut dasar NIP, Nama, dan Gaji. Gambarkan Class Diagram lengkap yang memuat nama class, atribut utama di setiap class, jenis relasi (seperti _Association_ atau _Generalization_), dan _multiplicity_ antar class.
+
+### Soal 5
+[Soal Latihan 4: Sistem Pemesanan Makanan Online (Food Delivery)](03-use-case.md)
