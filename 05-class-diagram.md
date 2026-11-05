@@ -367,7 +367,7 @@ _Ciri: Memuat visibilitas akses (`-`, `+`), tipe data teknis, metode/operasi len
 ### Soal 1
 Berikut adalah diagram diagram untuk **Sistem Kasir Penjualan (NextGen Point of Sale)** yang menggabungkan seluruh konsep relasi (Asosiasi, Agregasi, Komposisi, Generalisasi, dan Kelas Asosiasi):
 
-![[files/05-cd-7.webp]]
+![](files/05-cd-7.webp)
 
 Berikut adalah 5 poin pertanyaan diskusi untuk mahasiswa berdasarkan UML Class Diagram tersebut:
 
