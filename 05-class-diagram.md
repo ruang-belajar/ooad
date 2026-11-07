@@ -306,11 +306,16 @@ Berikut adalah 5 poin pertanyaan diskusi untuk mahasiswa berdasarkan UML Class D
 
 ---
 ### Soal 2
-Enkapsulasi, Atribut, dan Operasi Dasar Sebuah sistem perbankan memiliki entitas `Rekening`. Setiap rekening menyimpan informasi nomor rekening, saldo, dan nama pemilik. Sistem harus bisa melakukan operasi setor tunai, tarik tunai, dan cek saldo. Berdasarkan deskripsi tersebut: a. Tentukan tipe data yang tepat untuk masing-masing atribut dan tipe kembalian (_return type_) untuk setiap operasi/method. b. Tentukan tingkat visibilitas (_public, private, protected_) yang paling sesuai untuk setiap atribut dan method berdasarkan prinsip enkapsulasi. c. Gambarkan entitas tersebut ke dalam satu blok Class Diagram yang standar.
+Enkapsulasi, Atribut, dan Operasi Dasar Sebuah sistem perbankan memiliki entitas `Rekening`. Setiap rekening menyimpan informasi nomor rekening, saldo, dan nama pemilik. Sistem harus bisa melakukan operasi setor tunai, tarik tunai, dan cek saldo. Berdasarkan deskripsi tersebut:
+	1. Tentukan tipe data yang tepat untuk masing-masing atribut dan tipe kembalian (_return type_) untuk setiap operasi/method. 
+	2. Tentukan tingkat visibilitas (_public, private, protected_) yang paling sesuai untuk setiap atribut dan method berdasarkan prinsip enkapsulasi. 
+	3. Gambarkan entitas tersebut ke dalam satu blok Class Diagram yang standar.
 
 ---
 ### Soal 3
-Analisis Relasi Agregasi dan Komposisi Dalam perancangan sistem akademik, terdapat entitas `Universitas`, `Fakultas`, dan `Dosen`. a. Jelaskan perbedaan mendasar antara relasi **Agregasi (_Aggregation_)** dan **Komposisi (_Composition_)** dalam konteks _Object-Oriented_. b. Buatlah Class Diagram sederhana yang mengilustrasikan kedua relasi tersebut menggunakan ketiga entitas di atas. Tentukan class mana yang menjadi _whole_ (keseluruhan) dan _part_ (bagian), serta lengkapi diagram dengan _multiplicity_ (kardinalitas) yang rasional.
+Analisis Relasi Agregasi dan Komposisi Dalam perancangan sistem akademik, terdapat entitas `Universitas`, `Fakultas`, dan `Dosen`. 
+1. Jelaskan perbedaan mendasar antara relasi **Agregasi (_Aggregation_)** dan **Komposisi (_Composition_)** dalam konteks _Object-Oriented_. 
+2. Buatlah Class Diagram sederhana yang mengilustrasikan kedua relasi tersebut menggunakan ketiga entitas di atas. Tentukan class mana yang menjadi _whole_ (keseluruhan) dan _part_ (bagian), serta lengkapi diagram dengan _multiplicity_ (kardinalitas) yang rasional.
 
 ---
 
