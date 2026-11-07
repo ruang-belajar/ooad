@@ -73,7 +73,10 @@ Kelas-kelas di dalam sistem tidak berdiri sendiri, melainkan saling berkolaboras
     - `m..n` : Rentang spesifik dari \(m\) hingga \(n\).
 - **Kelas Asosiasi (_Association Class_)**: Digunakan ketika hubungan asosiasi antara dua kelas itu sendiri memiliki atribut atau operasi tambahan. Digambarkan dengan kotak kelas yang dihubungkan menggunakan garis putus-putus ke garis asosiasi utama.
 
-![|600](files/05-cd-class-association-1.png)
+![|600](files/05-cs-association-2.png)
+Kelas Asosiasi ini biasanya hanya digunakan dalam fase analisis. Ketika dikomunikasikan ke tim teknis, maka diagram tersebut biasanya dipecah menjadi relasi *one-to-many*.
+
+![|700](files/05-cd-association-3.png)
 
 ---
 
