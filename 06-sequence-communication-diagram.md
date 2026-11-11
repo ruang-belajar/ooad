@@ -1,4 +1,4 @@
-# Sequence & Communication Diagram
+# Sequence Diagram
 
 Sequence Diagram merupakan bagian dari UML 2.x dan termasuk kelompok Interaction Diagram.
 
@@ -14,12 +14,10 @@ Diagram interaksi yang umum dalam UML meliputi:
 | Timing Diagram               | Menggambarkan perubahan kondisi berdasarkan waktu |
 |                              |                                                   |
 
-## 1. Sequence Diagram
-
 Fokus utama Sequence Diagram adalah urutan interaksi, bukan struktur kelas.
 
-### 1.1. Elemen Sequence Diagram
-#### Actor
+## 1. Elemen Sequence Diagram
+### 1.1. Actor
 
 Actor adalah pihak eksternal yang berinteraksi dengan sistem.
 
@@ -41,7 +39,7 @@ Actor biasanya digambarkan menggunakan simbol stick figure.
 
 Actor bukan selalu manusia. Sistem eksternal yang berkomunikasi dengan sistem juga dapat menjadi actor.
 
-#### Lifeline
+### 1.2. Lifeline
 
 Lifeline menggambarkan keberadaan suatu partisipan dalam interaksi.
 
@@ -57,7 +55,7 @@ Lifeline digambarkan sebagai kotak nama partisipan di bagian atas dan garis vert
 ![](files/06-sec-3.png)
 
 
-#### Message
+### 1.3. Message
 
 Message adalah komunikasi yang dikirim dari satu partisipan ke partisipan lainnya.
 
@@ -71,7 +69,7 @@ Message digambarkan menggunakan garis horizontal dengan panah.
 
 ![](files/06-sec-2.png)
 
-#### Activation / Execution Specification
+### 1.4. Activation / Execution Specification
 
 Activation atau Execution Specification menunjukkan periode ketika suatu partisipan sedang menjalankan aktivitas atau operasi.
 
@@ -88,15 +86,9 @@ Activation membantu memperlihatkan:
 
 Activation bukan representasi waktu nyata atau durasi pasti kecuali diagram dilengkapi informasi waktu.
 
-#### Return Message
+### 1.5. Message
 
-Return Message adalah pesan yang menunjukkan hasil atau pengembalian dari suatu pemanggilan operasi.
-
-Biasanya digambarkan dengan garis putus-putus dan panah terbuka. Dalam UML, return message bersifat opsional apabila hasil operasi sudah jelas dari interaksi.
-
----
-
-### 1.2. Jenis-Jenis Message
+![](files/06-sd-1.webp)
 
 #### Synchronous Message
 
@@ -104,17 +96,10 @@ Synchronous Message adalah pesan yang mengindikasikan pemanggilan operasi secara
 
 Pengirim biasanya menunggu operasi yang dipanggil selesai sebelum melanjutkan proses berikutnya.
 
-
 Karakteristik:
 - Umumnya digunakan untuk pemanggilan method.
 - Pengirim menunggu penyelesaian operasi.
 - Sering ditampilkan dengan panah garis penuh dan kepala panah tertutup.
-
-Contoh penggunaan:
-
-```
-userService.getUserById(10);
-```
 
 #### Asynchronous Message
 
@@ -141,75 +126,64 @@ Pemanggilan di atas dapat berupa asynchronous jika implementasinya memang tidak 
 
 Catatan: Jenis message dalam diagram menjelaskan semantik interaksi, bukan sekadar penggunaan thread atau teknologi tertentu.
 
-#### Return Message
+#### Return Message / Result
 
-Return Message menunjukkan hasil dari operasi yang telah dipanggil.
+Return Message adalah pesan yang menunjukkan hasil atau pengembalian dari suatu pemanggilan operasi.
 
-Contoh:
-
-```
-AuthService → LoginUI : authenticationResult
-```
-
-Representasi visual biasanya berupa garis putus-putus.
-
-Return Message tidak selalu wajib ditampilkan.
+Biasanya digambarkan dengan garis putus-putus dan panah terbuka. Dalam UML, return message bersifat opsional apabila hasil operasi sudah jelas dari interaksi.
 
 #### Self Message
 
 Self Message adalah pesan yang dikirim oleh suatu partisipan kepada dirinya sendiri.
 
-Contoh:
-
-```
-OrderService → OrderService : calculateTotal()
-```
-
 Digunakan ketika suatu objek memanggil operasi internal atau melakukan pemrosesan sendiri.
 
-Contoh:
+![](files/06-sd-2.png)
+#### Create & Destroy Message
 
-```
-public void checkout() {
-    calculateTotal();
-}
-```
-
-#### Create Message
-
-Create Message menunjukkan proses pembuatan objek baru.
-
-Contoh:
-
-```
-OrderController → Order : <<create>>
-```
-
-Lifeline objek yang dibuat dimulai pada titik pembuatan tersebut.
-
-Contoh implementasi:
-
-```
-Order order = new Order();
-```
-
-#### Delete Message
+Create Message menunjukkan proses pembuatan objek baru. 
 
 Delete Message menunjukkan penghapusan atau penghentian keberadaan objek dalam interaksi.
 
-Dalam diagram, lifeline objek berakhir dengan tanda silang `X`.
-
-Contoh:
-
-```
-SessionManager → Session : destroy()
-```
-
 Penghapusan lifeline tidak otomatis berarti objek dihapus dari memori oleh garbage collector. Diagram menunjukkan semantik penghentian objek dalam model.
+
+```mermaid
+
+sequenceDiagram
+    autonumber
+    actor Customer as Pelanggan
+    participant UI as OrderUI
+    participant Controller as OrderController
+    participant Order as Order
+
+    Customer->>UI: checkout()
+    UI->>Controller: createOrder(orderData)
+
+    create participant NewOrder as NewOrder : Order
+    Controller->>NewOrder: <<create>>(orderData)
+
+    NewOrder->>NewOrder: calculateTotal()
+    NewOrder-->>Controller: orderCreated
+
+    Controller-->>UI: orderSuccess
+    UI-->>Customer: tampilkanKonfirmasi()
+
+    Customer->>UI: cancelOrder()
+    UI->>Controller: cancelOrder(orderId)
+
+    Controller->>NewOrder: destroy()
+
+    destroy NewOrder
+    Controller-xNewOrder: << destroy >>
+
+    Controller-->>UI: cancellationSuccess
+    UI-->>Customer: tampilkanPembatalan()
+
+```
 
 ---
 
-### 1.3. Struktur Visual Sequence Diagram
+## 2. Struktur Visual Sequence Diagram
 
 Sequence Diagram memiliki dua dimensi utama.
 * Dimensi horizontal: Menunjukkan partisipan atau objek yang terlibat dalam interaksi.
@@ -224,13 +198,14 @@ Prinsip penting:
 6. Jarak vertikal tidak harus menunjukkan durasi waktu sebenarnya.
 
 ---
-### 1.4. Combined Fragments
+## 3. Combined Fragments
 
 Combined Fragment digunakan untuk menggambarkan kondisi, pengulangan, dan pola interaksi khusus.
 
 Combined Fragment ditampilkan menggunakan frame persegi panjang dengan operator di bagian kiri atas.
 
-### 1.5. Operator `alt`
+
+### 3.1. Operator `alt`
 
 `alt` digunakan untuk memodelkan alternatif interaksi berdasarkan kondisi.
 
@@ -254,8 +229,7 @@ sequenceDiagram
     end
 
 ```
-
-### 1.6. Operator `opt`
+### 3.2. Operator `opt`
 
 `opt` digunakan untuk interaksi yang hanya dijalankan jika kondisi tertentu terpenuhi.
 
@@ -286,7 +260,8 @@ sequenceDiagram
     end
 
 ```
-### 1.7. Operator `loop`
+---
+### 3.3. Operator `loop`
 
 `loop` digunakan untuk menggambarkan pengulangan interaksi.
 
@@ -323,8 +298,9 @@ Contoh kondisi:
 ```
 loop [jumlah percobaan < 3]
 ```
+---
 
-### 1.8. Operator `par`
+### 3.4. Operator `par`
 
 `par` digunakan untuk menggambarkan interaksi yang berlangsung secara paralel.
 
@@ -357,7 +333,9 @@ sequenceDiagram
 
 
 ![](files/Pasted%20image%2020261109214156.png)
-### 1.9. Operator `break`
+
+---
+### 3.5. Operator `break`
 
 `break` digunakan untuk menunjukkan interaksi yang menghentikan bagian interaksi yang sedang berlangsung ketika kondisi tertentu terpenuhi.
 
@@ -385,9 +363,10 @@ sequenceDiagram
 
 ```
 
-### 1.10. Study Kasus
+---
+## 4. Study Kasus
 
-#### Contoh Sequence Diagram: Sistem Login
+### 4.1. Contoh Sequence Diagram: Sistem Login
 
 ##### Studi Kasus
 
@@ -408,8 +387,6 @@ sequenceDiagram
 | 6   | AuthService    | Mengembalikan hasil autentikasi  |
 | 7   | LoginUI        | Menampilkan hasil login          |
 
-#### Sequence Diagram Login
-
 ![](files/Pasted%20image%2020261109213116.png)
 ##### Penjelasan diagram
 - `User` merupakan actor.
@@ -421,7 +398,8 @@ sequenceDiagram
 
 Diagram ini menunjukkan bahwa proses login bukan hanya aktivitas pengguna, tetapi juga komunikasi antarobjek internal sistem.
 
-#### Studi Kasus: Sistem Pemesanan Barang Online
+---
+### 4.2. Studi Kasus: Sistem Pemesanan Barang Online
 
 - Sebuah aplikasi e-commerce menyediakan fitur pemesanan barang.
 - Proses dimulai ketika pelanggan memilih produk dan melakukan checkout.
@@ -515,10 +493,10 @@ sequenceDiagram
 
 ```
 
-##### Analisis Interaksi
-
 Diagram tersebut memperlihatkan beberapa prinsip desain berorientasi objek.
-###### Separation of Concerns
+
+#### Separation of Concerns
+
 Setiap objek memiliki tanggung jawab yang berbeda.
 - `OrderUI`: interaksi dengan pengguna.
 - `OrderService`: logika pemrosesan pesanan.
@@ -527,58 +505,24 @@ Setiap objek memiliki tanggung jawab yang berbeda.
 
 Pemisahan ini membantu mengurangi ketergantungan antarbagian sistem.
 
-###### Encapsulation
+#### Encapsulation
 - Customer tidak berinteraksi langsung dengan database.
 - Customer mengirimkan permintaan ke UI, kemudian UI berkomunikasi dengan service.
 - Database diakses melalui objek yang bertanggung jawab terhadap proses tersebut.
 
-###### Object Collaboration
+#### Object Collaboration
 - Proses checkout melibatkan kolaborasi beberapa objek.
 - Satu objek tidak harus menangani seluruh proses.
 
-###### Conditional Interaction
+#### Conditional Interaction
 Penggunaan `alt` memperlihatkan alternatif alur berdasarkan kondisi:
 - Stok tersedia atau tidak.
 - Pembayaran berhasil atau gagal.
 
-### 1.11. Hubungan Sequence Diagram dengan Class Diagram
 
-Sequence Diagram dan Class Diagram saling melengkapi.
+---
 
-| Class Diagram                 | Sequence Diagram                |
-| ----------------------------- | ------------------------------- |
-| Menggambarkan struktur sistem | Menggambarkan interaksi sistem  |
-| Menampilkan class             | Menampilkan partisipan          |
-| Menampilkan atribut           | Tidak berfokus pada atribut     |
-| Menampilkan operasi           | Menampilkan pemanggilan operasi |
-| Menunjukkan hubungan statis   | Menunjukkan perilaku dinamis    |
-
-#### Contoh
-
-Class Diagram:
-
-```mermaid
-	
-classDiagram
-    class AuthService {
-        authenticate()
-        verifyPassword()
-    }
-
-```
-
-Sequence Diagram:
-
-```
-LoginUI → AuthService : authenticate()
-AuthService → AuthService : verifyPassword()
-```
-
-Sequence Diagram dapat membantu mengidentifikasi operasi yang dibutuhkan dalam Class Diagram.
-
-Namun, Sequence Diagram tidak menggantikan Class Diagram karena keduanya memiliki tujuan pemodelan yang berbeda.
-
-### 1.11. Langkah-Langkah Membuat Sequence Diagram
+## 6. Langkah-Langkah Membuat Sequence Diagram
 
 Berikut tahapan sistematis yang dapat digunakan mahasiswa.
 
@@ -606,8 +550,8 @@ Berikut tahapan sistematis yang dapat digunakan mahasiswa.
 8. Validasi Diagram
     - Pastikan alur sesuai dengan skenario use case, tanggung jawab objek, dan kebutuhan sistem.
     
-
-### 1.12. Kesalahan Umum dalam Membuat Sequence Diagram
+---
+## 7. Kesalahan Umum dalam Membuat Sequence Diagram
 
 | Kesalahan                                     | Penjelasan                                  |
 | --------------------------------------------- | ------------------------------------------- |
@@ -621,12 +565,10 @@ Berikut tahapan sistematis yang dapat digunakan mahasiswa.
 | Pesan tidak sesuai operasi class              | Diagram tidak konsisten dengan desain objek |
 | Menganggap garis vertikal sebagai waktu nyata | Salah memahami dimensi temporal diagram     |
 
-#### Prinsip desain
+> 💡 **Prinsip desain:** Sequence Diagram harus cukup detail untuk menjelaskan interaksi, tetapi tidak terlalu detail sampai setiap instruksi program digambarkan. Fokuslah pada komunikasi antarpartisipan dan tanggung jawab objek.
 
-> 💡Sequence Diagram harus cukup detail untuk menjelaskan interaksi, tetapi tidak terlalu detail sampai setiap instruksi program digambarkan. Fokuslah pada komunikasi antarpartisipan dan tanggung jawab objek.
-
-
-## 3. 🎓Diskusi & Tugas
+---
+## 8. 🎓Diskusi & Tugas
 
 ### Latihan 1 — Sistem Login
 Buat Sequence Diagram untuk proses login dengan ketentuan:
@@ -643,6 +585,7 @@ Pertanyaan:
 4. Bagaimana menggambarkan kondisi login berhasil dan gagal?
 5. Bagaimana menggambarkan pengulangan login?
 
+---
 ### Latihan 2 — Sistem Perpustakaan
 
 Buat Sequence Diagram untuk proses peminjaman buku.
@@ -669,7 +612,7 @@ Pertanyaan analisis:
 - Apa tanggung jawab LoanService?
 - Bagaimana menggambarkan buku yang tidak tersedia?
 - Apakah notifikasi dapat dilakukan secara asynchronous?
-
+---
 ### Latihan 3 — Sistem Pembayaran
 
 Buat Sequence Diagram untuk sistem pembayaran dengan ketentuan:
@@ -686,3 +629,91 @@ Gunakan:
 - Synchronous Message
 - Asynchronous Message
 
+---
+
+# Communication Diagram
+
+Dalam contoh notasi untuk communication diagram, objek (aktor dalam kasus penggunaan/use case) direpresentasikan oleh persegi panjang. Dalam contoh tersebut (communication diagram generik):
+
+- Objek-objek yang ada adalah Object1, Object2, Object..., ObjectN-1, ..., dan ObjectN.
+- Pesan yang dikirimkan antarobjek direpresentasikan oleh panah berlabel yang bermula dari objek (aktor) pengirim dan berakhir pada objek penerima.
+- Contoh pesan yang dikirimkan antarobjek diberi label 1: message1, 2: message2, 3: message3, dan seterusnya, di mana awalan numerik pada nama pesan menunjukkan urutannya dalam rangkaian tersebut.
+- Object1 pertama-tama mengirimkan pesan message1 kepada Object2, kemudian Object2 mengirimkan pesan message2 kepada ObjectN-1, dan seterusnya.
+- Pesan yang dikirimkan oleh objek kepada dirinya sendiri ditunjukkan sebagai perulangan/loop (contohnya, message5).
+
+![](files/06-com-1.png)
+
+
+
+## Communication Example - Hotel Reservation
+
+![](files/06-com-2.png)
+
+
+
+- Setiap pesan dalam communication diagram memiliki nomor urut.
+- Pesan tingkat atas diberi nomor 1.
+- Pesan-pesan yang dikirim selama pemanggilan yang sama memiliki awalan desimal yang sama, namun dengan akhiran 1, 2, dan seterusnya, bergantung pada urutan kemunculannya.
+
+## Communication Diagram vs Sequence Diagram
+
+communication diagram dan diagram urutan (sequence diagram) memiliki kemiripan. Keduanya secara semantik setara—artinya, keduanya menyajikan informasi yang sama—dan Anda dapat mengubah communication diagram menjadi diagram urutan, begitu pula sebaliknya. Perbedaan utama di antara keduanya adalah bahwa communication diagram menyusun elemen-elemen berdasarkan ruang, sedangkan diagram urutan menyusunnya berdasarkan waktu.
+
+Di antara kedua jenis diagram interaksi tersebut, diagram urutan tampaknya jauh lebih sering digunakan dibandingkan communication diagram. Lantas, mengapa Anda perlu menggunakan communication diagram? Pertama, diagram ini sangat berguna untuk memvisualisasikan hubungan antarobjek yang berkolaborasi dalam melaksanakan tugas tertentu—hal yang sulit ditentukan melalui diagram urutan. Selain itu, communication diagram juga dapat membantu Anda memastikan akurasi model statis Anda (yaitu, class diagram).
+
+## Example - Sequence diagram vs Communication (Library Item Overdue)
+
+![](files/06-com-3.png)
+
+communication diagram seperti yang diperlihatkan pada gambar di bawah ini:
+
+![](files/06-com-4.png)
+
+**Catatan**: Jika Anda membandingkan kedua diagram tersebut, Anda akan melihat bahwa keduanya sama-sama memuat objek dan pesan. Selain itu, terlihat jelas bahwa menentukan urutan waktu pesan jauh lebih mudah dengan melihat diagram urutan (*sequence diagram*), sementara untuk melihat hubungan antarobjek, lebih mudah menggunakan communication diagram (*communication diagram*).
+
+## Communication Diagram Elements
+
+**Objek** yang berpartisipasi dalam suatu kolaborasi terbagi menjadi dua jenis: penyedia (*supplier*) dan klien (*client*).
+
+- **Objek penyedia (*supplier objects*)** adalah objek yang menyediakan metode yang dipanggil, sehingga objek ini menerima pesan.
+- **Objek klien (*client objects*)** adalah objek yang memanggil metode pada objek penyedia, sehingga objek ini mengirimkan pesan.
+
+**Tautan (*Links*)**
+
+- Garis penghubung yang digambarkan di antara objek-objek dalam communication diagram disebut sebagai tautan (*links*).
+- Tautan inilah yang membedakan communication diagram dengan diagram urutan (*sequence diagrams*). Tautan memungkinkan Anda untuk melihat hubungan antarobjek.
+- Setiap tautan merepresentasikan hubungan antarobjek dan melambangkan kemampuan objek-objek tersebut untuk saling mengirim pesan.
+- Jika suatu objek mengirim pesan kepada dirinya sendiri, tautan yang membawa pesan tersebut digambarkan sebagai ikon perulangan (*loop*). Perulangan ini dapat dilihat baik pada objek antarmuka pengguna (UI) maupun objek transaksi.
+
+**Pesan (*Messages*)** dalam communication diagram ditunjukkan sebagai panah yang mengarah dari objek klien ke objek penyedia. Biasanya, pesan merepresentasikan tindakan klien yang memanggil suatu operasi pada objek penyedia. Pesan dapat dimodelkan bersama dengan objek-objek terkait sebagai berikut:
+
+- Ikon pesan dapat memuat satu atau lebih pesan.
+- Pesan terdiri dari teks pesan yang diawali dengan nomor urut (*sequence number*).
+- Nomor urut ini menunjukkan urutan waktu dari pesan tersebut.
+
+Sebagai contoh, dalam communication diagram pada gambar di bawah ini, Anda dapat mengikuti nomor urut untuk menentukan urutan pesan di antara objek-objek yang ada:
+
+![](files/06-com-5.png)
+
+
+
+## Memahami Penomoran Pesan dalam communication diagram
+
+- Pesan pertama dalam communication diagram selalu diberi nomor 1, pesan kedua diberi nomor 2, dan seterusnya.
+- Anda dapat menunjukkan bahwa suatu pesan bersarang (nested) di bawah pesan induk dengan menambahkan titik desimal serta angka tambahan pada nomor urut pesan induk tersebut.
+
+Sebagai contoh:
+
+Berdasarkan contoh di atas, pesan "CalAmtCanBorrow" merupakan pesan bersarang pertama di bawah "EnquireBorrower" dan diberi nomor urut 1.1. Pesan bersarang kedua di bawah "EnquireBorrower" adalah "DisplayInvalidMsg", sehingga pesan ini diberi nomor urut 1.2.
+
+## Contoh - Dari Diagram Urutan (Sequence Diagram) ke communication diagram (Communication Diagram)
+
+![](files/06-com-6.png)
+
+**Perhatikan bahwa**:
+
+- **Fokus kendali (focus of control)**: disebut juga sebagai **kejadian eksekusi/aktivasi (execution occurrence/activation)**. Elemen ini ditampilkan sebagai persegi panjang yang tinggi dan ramping pada sebuah garis kehidupan (*lifeline*), yang merepresentasikan **periode** di mana suatu elemen sedang melakukan suatu operasi.
+- Bagian atas dan bawah persegi panjang tersebut masing-masing sejajar dengan waktu dimulainya dan waktu selesainya operasi.
+- Dalam communication diagram (*communication diagram*), fokus kendali bersifat eksplisit sehingga dapat direpresentasikan melalui penomoran bertingkat (*nest numbering*) pada pesan.
+
+📚 Sumber: https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-communication-diagram/
