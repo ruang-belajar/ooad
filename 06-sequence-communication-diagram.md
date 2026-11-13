@@ -568,7 +568,7 @@ Berikut tahapan sistematis yang dapat digunakan mahasiswa.
 > 💡 **Prinsip desain:** Sequence Diagram harus cukup detail untuk menjelaskan interaksi, tetapi tidak terlalu detail sampai setiap instruksi program digambarkan. Fokuslah pada komunikasi antarpartisipan dan tanggung jawab objek.
 
 ---
-## 8. 🎓Diskusi & Tugas
+## 8. 🎓 Diskusi & Tugas
 
 ### Latihan 1 — Sistem Login
 Buat Sequence Diagram untuk proses login dengan ketentuan:
@@ -628,6 +628,104 @@ Gunakan:
 - `par`
 - Synchronous Message
 - Asynchronous Message
+
+---
+
+### Latihan 4 — Sistem Informasi Akademik (Pengisian KRS)
+
+![](files/06-scd-1.png)
+
+**Deskripsi Kasus:**
+- Sebuah universitas memiliki sistem informasi akademik yang memungkinkan mahasiswa melakukan pengisian Kartu Rencana Studi (KRS) secara online.
+- Mahasiswa harus login terlebih dahulu menggunakan NIM dan password. Setelah berhasil login, mahasiswa dapat memilih mata kuliah yang akan diambil.
+- Sistem akan memeriksa apakah mata kuliah tersedia dan apakah jumlah SKS yang diambil tidak melebihi batas maksimum.
+- Jika semua persyaratan terpenuhi, sistem menyimpan KRS mahasiswa. Jika tidak, sistem menampilkan pesan kesalahan.
+
+Ketentuan proses:
+1. Mahasiswa melakukan login.
+2. Sistem memvalidasi username dan password.
+3. Mahasiswa memilih mata kuliah.
+4. Sistem memeriksa ketersediaan mata kuliah.
+5. Sistem memeriksa batas maksimum SKS.
+6. Jika valid, sistem menyimpan KRS.
+7. Jika tidak valid, sistem menampilkan pesan kesalahan.
+    
+
+Tugas mahasiswa:
+1. Identifikasi actor dan objek yang terlibat.
+2. Buat skenario interaksi antarobjek.
+3. Buat Sequence Diagram berdasarkan kasus tersebut.
+4. Gunakan Combined Fragment `alt` untuk menggambarkan kondisi KRS berhasil dan gagal.
+5. Jelaskan fungsi setiap objek dalam diagram.
+
+### Latihan 5 — Sistem Pemesanan Tiket Bioskop Online
+
+![](files/06-scd-2.png)
+
+**Deskripsi Kasus:**
+- Sebuah perusahaan bioskop menyediakan aplikasi pemesanan tiket secara online.
+- Pelanggan dapat memilih film, jadwal tayang, dan kursi yang tersedia.
+- Setelah memilih kursi, sistem akan memeriksa ketersediaan kursi. Jika kursi tersedia, pelanggan dapat melanjutkan ke proses pembayaran.
+- Setelah pembayaran berhasil, sistem membuat tiket elektronik (e-ticket) dan mengirimkan notifikasi kepada pelanggan melalui email.
+- Jika pembayaran gagal, sistem menampilkan pesan kegagalan transaksi.
+
+Ketentuan proses:
+1. Pelanggan membuka aplikasi bioskop.
+2. Pelanggan memilih film dan jadwal tayang.
+3. Sistem menampilkan daftar kursi.
+4. Pelanggan memilih satu atau beberapa kursi.
+5. Sistem memeriksa ketersediaan setiap kursi.
+6. Jika tersedia, sistem memproses pembayaran.
+7. Jika pembayaran berhasil, sistem membuat e-ticket.
+8. Sistem mengirim email konfirmasi kepada pelanggan.
+9. Jika kursi tidak tersedia atau pembayaran gagal, sistem menampilkan pesan kesalahan.
+
+Tugas mahasiswa:
+1. Identifikasi actor dan objek yang terlibat.
+2. Buat skenario interaksi pemesanan tiket.
+3. Buat Sequence Diagram berdasarkan kasus tersebut.
+4. Gunakan Combined Fragment `alt` untuk kondisi pembayaran berhasil dan gagal.
+5. Gunakan Combined Fragment `loop` untuk proses pemeriksaan setiap kursi.
+6. Gunakan Asynchronous Message untuk pengiriman email konfirmasi.
+7. Jelaskan alasan penggunaan Asynchronous Message.
+
+---
+### Latihan 6 — Sistem E-Commerce (Pemesanan dan Pengiriman Barang)
+
+**Deskripsi Kasus:**
+- Sebuah perusahaan e-commerce mengembangkan aplikasi yang memungkinkan pelanggan membeli berbagai produk secara online.
+- Pelanggan dapat memilih beberapa produk dan memasukkannya ke dalam keranjang belanja.
+- Ketika pelanggan melakukan checkout, sistem akan memeriksa ketersediaan stok setiap produk. Jika seluruh produk tersedia, sistem membuat objek pesanan baru dan memproses pembayaran.
+- Jika pembayaran berhasil, sistem akan memperbarui status pesanan, mengurangi stok produk, dan mengirimkan informasi pesanan kepada gudang serta notifikasi kepada pelanggan.
+- Proses pengiriman informasi ke gudang dan notifikasi pelanggan dapat berlangsung secara paralel.
+- Jika pembayaran gagal, sistem membatalkan proses pesanan dan menampilkan pesan kegagalan kepada pelanggan.
+
+Ketentuan proses:
+1. Customer memilih beberapa produk.
+2. Customer melakukan checkout.
+3. Sistem memeriksa stok setiap produk.
+4. Jika stok tersedia, sistem membuat objek Order baru.
+5. Sistem memproses pembayaran.
+6. Jika pembayaran berhasil:
+    - Sistem memperbarui status pesanan.
+    - Sistem mengurangi stok setiap produk.
+    - Sistem mengirimkan informasi pesanan kepada gudang.
+    - Sistem mengirimkan notifikasi kepada pelanggan.
+7. Pengiriman informasi ke gudang dan notifikasi pelanggan dilakukan secara paralel.
+8. Jika pembayaran gagal, sistem menampilkan pesan kegagalan.
+
+Tugas mahasiswa:
+1. Identifikasi actor dan seluruh objek yang terlibat.
+2. Buat skenario interaksi berdasarkan kasus tersebut.
+3. Buat Sequence Diagram menggunakan notasi UML.
+4. Gunakan Combined Fragment `loop` untuk pemeriksaan stok setiap produk.
+5. Gunakan Create Message untuk membuat objek Order.
+6. Gunakan Combined Fragment `alt` untuk kondisi pembayaran berhasil dan gagal.
+7. Gunakan Combined Fragment `par` untuk proses pengiriman informasi ke gudang dan notifikasi pelanggan.
+8. Gunakan Asynchronous Message untuk komunikasi dengan layanan gudang dan notifikasi.
+9. Jelaskan kapan objek Order dibuat dan bagaimana status objek tersebut dikelola.
+
+
 
 ---
 
