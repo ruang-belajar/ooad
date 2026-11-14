@@ -88,13 +88,9 @@ Activation bukan representasi waktu nyata atau durasi pasti kecuali diagram dile
 
 ### 1.5. Message
 
-![](files/06-sd-1.webp)
-
 #### Synchronous Message
 
-Synchronous Message adalah pesan yang mengindikasikan pemanggilan operasi secara sinkron.
-
-Pengirim biasanya menunggu operasi yang dipanggil selesai sebelum melanjutkan proses berikutnya.
+Synchronous Message adalah pesan yang mengindikasikan pemanggilan operasi secara sinkron. Pengirim biasanya menunggu operasi yang dipanggil selesai sebelum melanjutkan proses berikutnya.
 
 Karakteristik:
 - Umumnya digunakan untuk pemanggilan method.
@@ -105,26 +101,16 @@ Karakteristik:
 
 Asynchronous Message adalah pesan yang dikirim tanpa mengharuskan pengirim menunggu penyelesaian penerima.
 
-Contoh:
-
-```
-OrderService → NotificationService : sendNotification()
-```
-
 Karakteristik:
 - Pengirim dapat melanjutkan proses.
 - Cocok untuk komunikasi event atau pemrosesan latar belakang.
 - Umumnya menggunakan panah dengan kepala terbuka.
 
-Contoh implementasi:
-
-```
-notificationService.sendNotification(order);
-```
-
 Pemanggilan di atas dapat berupa asynchronous jika implementasinya memang tidak memblokir pengirim.
 
 Catatan: Jenis message dalam diagram menjelaskan semantik interaksi, bukan sekadar penggunaan thread atau teknologi tertentu.
+
+![](files/06-sd-1.webp)
 
 #### Return Message / Result
 
@@ -134,9 +120,7 @@ Biasanya digambarkan dengan garis putus-putus dan panah terbuka. Dalam UML, retu
 
 #### Self Message
 
-Self Message adalah pesan yang dikirim oleh suatu partisipan kepada dirinya sendiri.
-
-Digunakan ketika suatu objek memanggil operasi internal atau melakukan pemrosesan sendiri.
+Self Message adalah pesan yang dikirim oleh suatu partisipan kepada dirinya sendiri. Selft Message digunakan ketika suatu objek memanggil operasi internal atau melakukan pemrosesan sendiri.
 
 ![](files/06-sd-2.png)
 #### Create & Destroy Message
