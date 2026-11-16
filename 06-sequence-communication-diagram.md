@@ -316,7 +316,7 @@ sequenceDiagram
 `par` menunjukkan kemungkinan eksekusi paralel, bukan jaminan bahwa seluruh proses benar-benar berjalan bersamaan pada implementasi.
 
 
-![](files/Pasted%20image%2020261109214156.png)
+![](files/06-sec-5.png)
 
 ---
 ### 3.5. Operator `break`
@@ -371,7 +371,7 @@ sequenceDiagram
 | 6   | AuthService    | Mengembalikan hasil autentikasi  |
 | 7   | LoginUI        | Menampilkan hasil login          |
 
-![](files/Pasted%20image%2020261109213116.png)
+![](files/06-sec-4.png)
 ##### Penjelasan diagram
 - `User` merupakan actor.
 - `LoginUI` bertanggung jawab menerima input.

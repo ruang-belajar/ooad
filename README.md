@@ -7,3 +7,4 @@
 4. [Pemodelan Alur Kerja Bisnis & Activity Diagram](04-activity-diagram.md)
 5. [Conceptual Modeling & Class Diagram](05-class-diagram.md)
 6. [Sequence & Communication Diagram](06-sequence-communication-diagram.md)
+7. [State Machine Diagram](07-state-machine-diagram.md)
