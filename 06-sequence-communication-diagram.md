@@ -1,20 +1,6 @@
 # Sequence Diagram
 
-Sequence Diagram merupakan bagian dari UML 2.x dan termasuk kelompok Interaction Diagram.
-
-Interaction Diagram digunakan untuk memodelkan komunikasi antarpartisipan dalam suatu sistem.
-
-Diagram interaksi yang umum dalam UML meliputi:
-
-| Diagram                      | Fungsi                                            |
-| ---------------------------- | ------------------------------------------------- |
-| Sequence Diagram             | Menggambarkan urutan pesan berdasarkan waktu      |
-| Communication Diagram        | Menggambarkan hubungan komunikasi antarobjek      |
-| Interaction Overview Diagram | Menggambarkan alur interaksi tingkat tinggi       |
-| Timing Diagram               | Menggambarkan perubahan kondisi berdasarkan waktu |
-|                              |                                                   |
-
-Fokus utama Sequence Diagram adalah urutan interaksi, bukan struktur kelas.
+Sequence Diagram merupakan bagian dari UML 2.x dan termasuk kelompok Interaction Diagram. Fokus utama Sequence Diagram adalah urutan interaksi, bukan struktur kelas.
 
 ## 1. Elemen Sequence Diagram
 ### 1.1. Actor

@@ -87,58 +87,16 @@ Transisi terjadi ketika sistem menerima konfirmasi pembayaran.
 ![](files/07-smd-4.png)
 
 
+### E. Notasi Penulisan Label
 
+![](files/Pasted%20image%2020261118180421.png)
 
-### E. Event (Kejadian)
+|                | Event                                                                                                 | Guard Condition                                                                             | Action                                                                                                          |
+| -------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| **Keterangan** | Event adalah kejadian yang memicu perubahan status objek                                              | kondisi atau persyaratan yang harus terpenuhi agar suatu transisi dapat dilakukan.          | aktivitas yang dijalankan ketika transisi atau perubahan status terjadi.                                        |
+| **Contoh**     | - Tombol Daftar diklik.<br>- Pembayaran berhasil.<br>- Dokumen diverifikasi.<br>- Pesanan dibatalkan. | - belum ada pembayaran<br>- belum lunas<br>- dokumen tidak valid<br>- Pesanan sudah selesai | - Mengirim notifikasi.<br>- Menyimpan data.<br>- Mengirim email konfirmasi.<br>- Memperbarui status pembayaran. |
 
-Event adalah kejadian yang memicu perubahan status objek.
-
-Contoh:
-- Tombol Daftar diklik.
-- Pembayaran berhasil.
-- Dokumen diverifikasi.
-- Pesanan dibatalkan.
-
-### F. Guard Condition (Kondisi)
-
-Guard Condition adalah kondisi atau persyaratan yang harus terpenuhi agar suatu transisi dapat dilakukan.
-
-Biasanya ditulis menggunakan tanda kurung siku `[ ]`.
-
-Contoh:
-
-`Verifikasi [dokumen lengkap]`
-
-Artinya, proses dapat berlanjut jika dokumen telah lengkap.
-
-### G. Action (Aksi)
-
-Action adalah aktivitas yang dijalankan ketika transisi atau perubahan status terjadi.
-
-Contoh:
-- Mengirim notifikasi.
-- Menyimpan data.
-- Mengirim email konfirmasi.
-- Memperbarui status pembayaran.
-
-### H. Notasi Transisi (Transition Label)
-
-Dalam UML, transisi dapat dituliskan dengan format:
-
-```
-Event [Guard] / Action
-```
-
-Contoh:
-
-`bayar() [saldo cukup] / cetakBukti()`
-
-Artinya:
-- Event: pengguna melakukan pembayaran.
-- Guard: saldo harus mencukupi.
-- Action: sistem mencetak bukti pembayaran.
-
-### I. Self-Transition
+### F. Self-Transition
 
 Self-Transition adalah transisi yang menyebabkan objek tetap berada pada status yang sama, tetapi menjalankan suatu aksi.
 
@@ -316,7 +274,7 @@ Contoh:
 
 ---
 
-## 10. 💡Kesimpulan
+## 10. 💡 Kesimpulan
 
 Hal-hal penting yang harus dipahami mahasiswa:
 1. State Machine Diagram merupakan diagram UML untuk menggambarkan perubahan status suatu objek.
