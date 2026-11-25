@@ -15,6 +15,7 @@ Perubahan status tersebut terjadi karena adanya aktivitas atau kejadian tertentu
 
 Untuk menggambarkan perubahan status tersebut, UML menyediakan diagram yang disebut State Machine Diagram.
 
+---
 ## 2. Pengertian State Machine Diagram
 
 State Machine Diagram adalah diagram UML yang digunakan untuk menggambarkan perubahan kondisi atau status suatu objek berdasarkan kejadian (event) yang terjadi selama objek tersebut memiliki siklus hidup.
@@ -27,6 +28,7 @@ Diagram ini menjelaskan:
 
 > 💡 Inti pemahaman, State Machine Diagram menjawab pertanyaan: "Bagaimana kondisi suatu objek berubah dari satu keadaan ke keadaan lainnya ketika suatu kejadian terjadi?"
 
+---
 ## 3. Tujuan dan Manfaat State Machine Diagram
 
 State Machine Diagram memiliki beberapa tujuan:
@@ -37,6 +39,7 @@ State Machine Diagram memiliki beberapa tujuan:
 5. Membantu programmer memahami perilaku objek ketika sistem dijalankan.
 6. Menghindari perubahan status yang tidak sesuai dengan aturan sistem.
 
+---
 ## 4. Konsep Dasar State Machine Diagram
 
 Sebelum membuat diagram, mahasiswa perlu memahami beberapa elemen dasar berikut.
@@ -89,12 +92,20 @@ Transisi terjadi ketika sistem menerima konfirmasi pembayaran.
 
 ### E. Notasi Penulisan Label
 
-![](files/Pasted%20image%2020261118180421.png)
+Label menjelaskan _kapan, dengan syarat apa, dan tindakan apa_ yang terjadi ketika objek berpindah dari satu status ke status lainnya.
 
-|                | Event                                                                                                 | Guard Condition                                                                             | Action                                                                                                          |
-| -------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| **Keterangan** | Event adalah kejadian yang memicu perubahan status objek                                              | kondisi atau persyaratan yang harus terpenuhi agar suatu transisi dapat dilakukan.          | aktivitas yang dijalankan ketika transisi atau perubahan status terjadi.                                        |
-| **Contoh**     | - Tombol Daftar diklik.<br>- Pembayaran berhasil.<br>- Dokumen diverifikasi.<br>- Pesanan dibatalkan. | - belum ada pembayaran<br>- belum lunas<br>- dokumen tidak valid<br>- Pesanan sudah selesai | - Mengirim notifikasi.<br>- Menyimpan data.<br>- Mengirim email konfirmasi.<br>- Memperbarui status pembayaran. |
+```
+Event [Guard] / Action
+```
+
+|                | Event                                                                                                                                | Guard Condition                                                                               | Action                                                                                                          |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| **Keterangan** | Event adalah kejadian yang memicu perubahan status objek.<br>Event bisa ditulis berupa string bebas, tidak harus berupa nama fungsi. | kondisi atau persyaratan yang harus terpenuhi agar suatu transisi dapat dilakukan. (opsional) | aktivitas yang dijalankan ketika transisi atau perubahan status terjadi. (opsional)                             |
+| **Contoh**     | - Tombol Daftar diklik.<br>- Pembayaran berhasil.<br>- Dokumen diverifikasi.<br>- Pesanan dibatalkan.                                | - belum ada pembayaran<br>- belum lunas<br>- dokumen tidak valid<br>- Pesanan sudah selesai   | - Mengirim notifikasi.<br>- Menyimpan data.<br>- Mengirim email konfirmasi.<br>- Memperbarui status pembayaran. |
+
+![](files/Pasted%20image%2020261118180421.png)
+> 🧑‍🏫 Jika kita mengkomunikasikan State Machine Diagram pada level konseptual, gunakan string bebas sebagai *event*, tanpa perlu menyertakan *guard* dan *action*.
+
 
 ### F. Self-Transition
 
@@ -102,20 +113,8 @@ Self-Transition adalah transisi yang menyebabkan objek tetap berada pada status 
 
 Contoh: Ketika pesanan masih dalam status Diproses, sistem memperbarui informasi estimasi pengiriman tanpa mengubah status pesanan.
 
-## 5. Simbol-Simbol State Machine Diagram
-
-Berikut rangkuman simbol UML yang perlu dipahami mahasiswa.
-
-| Simbol                 | Nama             | Fungsi                         |
-| ---------------------- | ---------------- | ------------------------------ |
-| ●                      | Initial State    | Menandai status awal           |
-| ◎                      | Final State      | Menandai status akhir          |
-| Kotak sudut melengkung | State            | Menunjukkan kondisi objek      |
-| Panah →                | Transition       | Menunjukkan perpindahan status |
-| `[kondisi]`            | Guard Condition  | Syarat perpindahan status      |
-| `event / action`       | Transition Label | Menjelaskan kejadian dan aksi  |
-
-## 6. Contoh State Machine Diagram
+---
+## 5. Contoh State Machine Diagram
 
 Untuk mempermudah pemahaman, berikut tiga contoh penerapan State Machine Diagram.
 
@@ -157,14 +156,14 @@ stateDiagram-v2
 
 Penjelasan:
 
-|Status|Penjelasan|
-|---|---|
-|Belum Mendaftar|Calon mahasiswa belum mengirim formulir|
-|Menunggu Verifikasi|Formulir sudah dikirim dan menunggu pemeriksaan|
-|Perlu Perbaikan|Dokumen belum memenuhi persyaratan|
-|Terverifikasi|Dokumen telah memenuhi persyaratan|
-|Diterima|Calon mahasiswa dinyatakan lulus|
-|Ditolak|Calon mahasiswa dinyatakan tidak lulus|
+| Status              | Penjelasan                                      |
+| ------------------- | ----------------------------------------------- |
+| Belum Mendaftar     | Calon mahasiswa belum mengirim formulir         |
+| Menunggu Verifikasi | Formulir sudah dikirim dan menunggu pemeriksaan |
+| Perlu Perbaikan     | Dokumen belum memenuhi persyaratan              |
+| Terverifikasi       | Dokumen telah memenuhi persyaratan              |
+| Diterima            | Calon mahasiswa dinyatakan lulus                |
+| Ditolak             | Calon mahasiswa dinyatakan tidak lulus          |
 
 Hal penting yang perlu diperhatikan: satu objek Pendaftaran dapat mengalami beberapa perubahan status selama proses penerimaan mahasiswa berlangsung.
 
@@ -198,29 +197,17 @@ Penjelasan:
 
 ### Contoh 3. Sistem Peminjaman Buku Perpustakaan
 
-Studi kasus:
+Sebuah perpustakaan menggambarkan perubahan status buku pada sistem peminjaman bukunya sebagai berikut:
 
-Objek Peminjaman memiliki beberapa status yang berubah sesuai aktivitas peminjaman buku.
+![](files/07-smd-8.png)
 
-![](files/07-smd-7.png)
+Ketika dikomunikasikan kepada tim developer, kita diagram bisa dibuat lebih detail menjadi seperti berikut:
 
-Alur status:
+![](files/07-smd-9.png)
 
-```mermaid
-stateDiagram-v2
-    [*] --> MenungguPersetujuan
-    MenungguPersetujuan --> Dipinjam: Peminjaman disetujui
-    MenungguPersetujuan --> Ditolak: Peminjaman ditolak
-    Dipinjam --> Terlambat: Melewati tanggal pengembalian
-    Dipinjam --> Dikembalikan: Buku dikembalikan
-    Terlambat --> Dikembalikan: Buku dikembalikan
-    Dikembalikan --> [*]
-    Ditolak --> [*]
-```
 
-Contoh ini menunjukkan bahwa sebuah objek dapat memiliki jalur perubahan status yang berbeda, tergantung kejadian yang dialaminya.
-
-## 7. Langkah-Langkah Membuat State Machine Diagram
+---
+## 6. Langkah-Langkah Membuat State Machine Diagram
 
 Untuk membuat State Machine Diagram, mahasiswa dapat mengikuti tahapan berikut.
 
@@ -240,7 +227,7 @@ Untuk membuat State Machine Diagram, mahasiswa dapat mengikuti tahapan berikut.
 	- Pastikan tidak ada transisi yang bertentangan dengan aturan bisnis sistem.
 
 ---
-## 8. Perbedaan State Machine Diagram dengan Activity Diagram
+## 7. Perbedaan State Machine Diagram dengan Activity Diagram
 
 Keduanya merupakan diagram perilaku (Behavioral Diagram) dalam UML, tetapi memiliki fokus yang berbeda.
 
@@ -257,7 +244,7 @@ Contoh sederhana:
 - State Machine Diagram: menggambarkan perubahan status objek Pendaftaran dari Belum Mendaftar sampai Diterima atau Ditolak.
 ---
 
-## 9. Kesalahan Umum dalam Membuat State Machine Diagram
+## 8. Kesalahan Umum dalam Membuat State Machine Diagram
 
 Beberapa kesalahan yang perlu dihindari:
 1. Menganggap setiap aktivitas sebagai status.
@@ -274,7 +261,7 @@ Contoh:
 
 ---
 
-## 10. 💡 Kesimpulan
+## 9. 💡 Kesimpulan
 
 Hal-hal penting yang harus dipahami mahasiswa:
 1. State Machine Diagram merupakan diagram UML untuk menggambarkan perubahan status suatu objek.
